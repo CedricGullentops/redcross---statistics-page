@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/css/data.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/data.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/statistics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,18 +61,34 @@
       <workItem from="1592211662569" duration="5385000" />
       <workItem from="1592573491714" duration="12010000" />
       <workItem from="1592600972708" duration="59000" />
-      <workItem from="1592649684450" duration="10408000" />
+      <workItem from="1592649684450" duration="10912000" />
     </task>
+    <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
+      <created>1592661861844</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1592661861844</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Temporary push for deployment to azure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Temporary push for deployment to azure" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592661829698">
+    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592661861001">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592661829698" />
+    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592661861001" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592662143818">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592662143818" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
