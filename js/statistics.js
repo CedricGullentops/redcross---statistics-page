@@ -1,12 +1,56 @@
 window.initAll()
 
+var HttpClient = function() {
+    this.get = function(aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.onreadystatechange = function() {
+            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                aCallback(anHttpRequest.responseText);
+        }
+        anHttpRequest.open( "GET", aUrl, true );
+        anHttpRequest.send( null );
+    }
+}
+
 function initAll(){
-    initMap();
-    initBarChartGender();
-    initDonutChartAge();
-    initDonutChartEducation();
-    initDonutChartSolution();
-    initDonutChartHospitalization();
+    var client = new HttpClient();
+    getAssistances(client);
+
+    // initBarAge();
+    // initMap();
+    // initBarChartGender();
+    // initDonutChartAge();
+    // initDonutChartEducation();
+    // initDonutChartSolution();
+    // initDonutChartHospitalization();
+}
+
+// Get list of assistances
+function getAssistances(client){
+    document.write("In here");
+    client.get('http://some/thing?with=arguments', function(response) {
+        var result = JSON.parse(response);
+        document.write(result);
+    });
+}
+
+// Getting data from back-end
+const userAction = async () => {
+    const response = await fetch('https://redcrossbackend.azurewebsites.net/Analytics/assistance.json', {
+        method: 'POST',
+        body: myBody, // string or object
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const myJson = await response.json(); //extract JSON from the http response
+    // do something with myJson
+
+}
+
+function setCountry(){
+    let element = document.getElementById("settingCountry");
+    settings.location = element.options[element.selectedIndex].value;
 }
 
 //class for settings
@@ -42,6 +86,70 @@ function getPoints() {
         new google.maps.LatLng(-8.721729, 23.225264)
     ];
 }
+
+// Barchart by age
+function initBarAge() {
+    var chart = JSC.chart('bar-age', {
+        debug: true,
+        type: 'column',
+        title_label_text:
+            'Device Availability And Personal Use',
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%value%',
+        xAxis: {
+            defaultTick: {
+                placement: 'inside',
+                label: {
+                    color: 'white',
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: 16
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue%</b> of users have<br>access to <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value%'
+                },
+                name: 'Users with access',
+                points: [
+                    {
+                        name: 'Smartphone',
+                        y: 78,
+                        marker_type:
+                            'material/hardware/smartphone'
+                    },
+                    {
+                        name: 'Tablet',
+                        y: 39,
+                        marker_type: 'material/hardware/tablet'
+                    },
+                    {
+                        name: 'Laptop',
+                        y: 49,
+                        marker_type: 'material/hardware/laptop'
+                    },
+                    {
+                        name: 'Desktop',
+                        y: 61,
+                        marker_type:
+                            'material/hardware/desktop-windows'
+                    }
+                ]
+            }
+        ]
+    });
+}
+
 
 // Bar chart by gender
 function initBarChartGender() {
@@ -148,22 +256,3 @@ function initDonutChartHospitalization() {
     chart.container('donutchartHospitalization');
     chart.draw();
 };
-
-// Getting data from back-end
-const userAction = async () => {
-    const response = await fetch('https://redcrossbackend.azurewebsites.net/Analytics/assistance.json', {
-        method: 'POST',
-        body: myBody, // string or object
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const myJson = await response.json(); //extract JSON from the http response
-    // do something with myJson
-
-}
-
-function setCountry(){
-    let element = document.getElementById("settingCountry");
-    settings.location = element.options[element.selectedIndex].value;
-}

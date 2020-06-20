@@ -23,6 +23,9 @@
     <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
 
+    <!-- jscharting -->
+    <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+
     <title>Red Cross · Statistics</title>
 
     <!-- Custom styles for this template-->
@@ -41,14 +44,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="statistics.html">
                         <i class="fa fa-bar-chart" style="font-size:24px"></i>
                         Statistics
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="data.html">
                         <i class="fa fa-eye" style="font-size:24px">
                             <span class="badge badge-danger"></span>
                         </i>
@@ -60,7 +63,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#">
-                        <i class="fa fa-download" style="font-size:32px">
+                        <i class="fa fa-download" style="font-size:24px">
                             <span class="badge badge-warning"></span>
                         </i>
                         Download .csv file
@@ -211,35 +214,38 @@
                         <option value="59">Other</option>
                     </select>
                 </div>
+
+                <!-- TODO: Add a filter for date -->
             </div>
         </div>
     </div>
 
     <div class="container-lg">
         <div class="row">
-            <div id="barchartGender" class="col-md"></div>
+            <a>There are X cases that correspond to these settings.</a>
         </div>
     </div>
 
     <div class="container-lg">
         <div class="row">
-            <div id="donutchartAge" class="col-md-6"></div>
-            <div id="donutchartEducation" class="col-md-7-12"></div>
+            <div id="donut-gender" class="col-md"></div>
         </div>
     </div>
 
     <div class="container-lg">
         <div class="row">
-            <div id="donutchartSolution" class="col-md-6"></div>
-            <div id="donutchartHospitalization" class="col-md-7-12"></div>
+            <div id="bar-age" class="col-md-6" style="max-width: 740px;height: 400px;margin: 0px auto"></div>
+            <div id="bar-edu" class="col-md-7-12"></div>
         </div>
     </div>
 
     <div class="container-lg">
         <div class="row">
-            <a>In x% of cases professional help was needed.</a>
+            <div id="donut-corr_sol" class="col-md-6"></div>
+            <div id="donut-hosp_req" class="col-md-7-12"></div>
         </div>
     </div>
+
 
     <div class="mapWrapper container-lg">
         <div id="map" class="map"></div>
