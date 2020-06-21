@@ -176,6 +176,19 @@
     height: 100%;
 }
 
+.statistic {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+}
+
 .navbar-brand {
     font-size: 30px;
 }

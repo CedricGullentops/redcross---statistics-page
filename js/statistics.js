@@ -55,6 +55,9 @@ let currentSettings = {
     // TODO: add education: "All"
 };
 
+// Things to do when a filter value is updated
+// TODO: when a filters value changes, check which charts are still valid to show
+
 function setTypeOfFA(){
     // TODO: add this one
 }
@@ -106,6 +109,9 @@ let map, heatmap;
 window.initAll();
 
 function initAll(){
+    // Make this element invisible, acts like a second tab instead
+    document.getElementById('dataWrapper').style.display = 'none';
+
     // Initialize settings by getting back-end information
     getAssistances();
     getInjuries();
@@ -115,14 +121,8 @@ function initAll(){
     getCalculatedValues();
     getRawData();
 
-
-    initBarAge();
-
-    initBarChartGender();
-    initDonutChartAge();
-    initDonutChartEducation();
-    initDonutChartSolution();
-    initDonutChartHospitalization();
+    // Initialize all graphs
+    updateGraphs();
 
     initMap();
 }
@@ -261,6 +261,7 @@ function getCountries(){
     });
 }
 
+// Change elements when changing tabs (make it look like there are 2 pages)
 function pressedStatisticsTab(){
     document.getElementById("statisticsTab").className = "nav-item active";
     document.getElementById("dataTab").className = "nav-item";
@@ -268,9 +269,9 @@ function pressedStatisticsTab(){
     document.getElementById('swappableContent').style.display = 'block';
     document.getElementById('mapWrapper').style.display = 'block';
     document.getElementById('dataWrapper').style.display = 'none';
-
 }
 
+// Change elements when changing tabs
 function pressedDataTab(){
     document.getElementById("dataTab").className = "nav-item active";
     document.getElementById("statisticsTab").className = "nav-item";
@@ -280,8 +281,17 @@ function pressedDataTab(){
     document.getElementById('dataWrapper').style.display = 'block';
 }
 
+// update all graphs based on currentValues
 function updateGraphs(){
-    // TODO: update all graphs based on currentValues
+    updateBarAge();
+    updateBarEducation();
+    updateDonutCorrectSolution();
+    updateDonutHospitalization();
+    updateDonutGender();
+    //TODO: by number of training bar/donut?
+    updateBarInjury();
+    updateDonutTraining();
+    updateDonutBlended();
 }
 
 function initMap() {
@@ -309,33 +319,15 @@ function getPoints() {
 ////////////////////////////////////////////
 ////////////////////////////////////////////
 
-
-
-
-// Getting data from back-end
-const userAction = async () => {
-    const response = await fetch('https://redcrossbackend.azurewebsites.net/Analytics/assistance.json', {
-        method: 'POST',
-        body: myBody, // string or object
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const myJson = await response.json(); //extract JSON from the http response
-    // do something with myJson
-
-}
-
-
 // Barchart by age
-function initBarAge() {
+function updateBarAge() {
     var chart = JSC.chart('bar-age', {
         debug: true,
         type: 'column',
         title_label_text:
-            'Device Availability And Personal Use',
+            'Amount of submissions by age',
         legend_visible: false,
-        yAxis_defaultTick_label_text: '%value%',
+        yAxis_defaultTick_label_text: '%value',
         xAxis: {
             defaultTick: {
                 placement: 'inside',
@@ -352,37 +344,47 @@ function initBarAge() {
             {
                 defaultPoint: {
                     tooltip:
-                        '<b>%yValue%</b> of users have<br>access to <b>%name</b>',
+                        '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>',
                     marker: {
                         visible: true,
                         size: 40,
                         fill: 'azure'
                     },
-                    label_text: '%value%'
+                    label_text: '%value'
                 },
-                name: 'Users with access',
+                name: 'Submissions by age',
                 points: [
                     {
-                        name: 'Smartphone',
-                        y: 78,
-                        marker_type:
-                            'material/hardware/smartphone'
+                        name: '<15',
+                        y: 50
                     },
                     {
-                        name: 'Tablet',
-                        y: 39,
-                        marker_type: 'material/hardware/tablet'
+                        name: '15-25',
+                        y: 80
                     },
                     {
-                        name: 'Laptop',
-                        y: 49,
-                        marker_type: 'material/hardware/laptop'
+                        name: '35-45',
+                        y: 65
                     },
                     {
-                        name: 'Desktop',
-                        y: 61,
-                        marker_type:
-                            'material/hardware/desktop-windows'
+                        name: '45-55',
+                        y: 24
+                    },
+                    {
+                        name: '55-65',
+                        y: 11
+                    },
+                    {
+                        name: '65-75',
+                        y: 6
+                    },
+                    {
+                        name: '75-85',
+                        y: 3
+                    },
+                    {
+                        name: '>85',
+                        y: 1
                     }
                 ]
             }
@@ -390,109 +392,383 @@ function initBarAge() {
     });
 }
 
+// Barchart by education
+function updateBarEducation(){
+    var chart = JSC.chart('bar-edu', {
+        debug: true,
+        type: 'column',
+        title_label_text:
+            'Amount of submissions by education',
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%value',
+        xAxis: {
+            defaultTick: {
+                placement: 'inside',
+                label: {
+                    color: 'white',
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: 16
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> people that submitted have <br><b>%name</b> as their highest form of education',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Submissions by education',
+                points: [
+                    {
+                        name: 'No education',
+                        y: 60
+                    },
+                    {
+                        name: 'Primary school',
+                        y: 120
+                    },
+                    {
+                        name: 'High school',
+                        y: 90
+                    },
+                    {
+                        name: 'Bachelor\'s degree',
+                        y: 30
+                    },
+                    {
+                        name: 'Master\'s degree',
+                        y: 12
+                    },
+                    {
+                        name: 'Phd',
+                        y: 3
+                    }
+                ]
+            }
+        ]
+    });
+}
 
-// Bar chart by gender
-function initBarChartGender() {
-    var chart = anychart.column();
-    chart.animation(true);
-    chart.title('Amount of submissions by gender');
+// Donut by correct solution
+function updateDonutCorrectSolution(){
+    var chart = JSC.chart('donut-corr_sol', {
+        debug: true,
+        legend: {
+            template: '%icon %name',
+            position: 'inside center'
+        },
+        title: {
+            label: {text: 'Submissions by correct solution provided',style_fontSize: 16 },
+            position: 'center'
+        },
+        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
+        defaultAnnotation_label_style_fontSize: 16,
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> submissions were <br>of type <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Submissions by correct solution provided',
+                points: [
+                    {
+                        name: 'Correct solution',
+                        y: 90
+                    },
+                    {
+                        name: 'Uncorrect solution',
+                        y: 10
+                    }
+                ]
+            }
+        ],
+        toolbar_visible: false});
+}
 
-    var series = chart.column([
-        ['Male', '147'],
-        ['Female', '151'],
-        ['X', '10']
-    ]);
+// Donut by required hospitalization
+function updateDonutHospitalization(){
+    var chart = JSC.chart('donut-hosp_req', {
+        debug: true,
+        legend: {
+            template: '%icon %name',
+            position: 'inside center'
+        },
+        title: {
+            label: {text: 'Submissions by hospitalization required',style_fontSize: 16 },
+            position: 'center'
+        },
+        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
+        defaultAnnotation_label_style_fontSize: 16,
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> cases of <br><b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Submissions by hospitalization required',
+                points: [
+                    {
+                        name: 'Hospitalization required',
+                        y: 30
+                    },
+                    {
+                        name: 'Not required',
+                        y: 70
+                    }
+                ]
+            }
+        ],
+        toolbar_visible: false});
+}
 
-    series.tooltip().titleFormat('{%X}');
+// Donut by gender
+function updateDonutGender(){
+    var chart = JSC.chart('donut-gender', {
+        debug: true,
+        legend: {
+            template: '%icon %name',
+            position: 'inside center'
+        },
+        title: {
+            label: {text: 'Submissions by gender',style_fontSize: 16 },
+            position: 'center'
+        },
+        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
+        defaultAnnotation_label_style_fontSize: 16,
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> submissions by <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Submissions by gender',
+                points: [
+                    {
+                        name: 'M',
+                        y: 45
+                    },
+                    {
+                        name: 'F',
+                        y: 55
+                    },
+                    {
+                        name: 'X',
+                        y: 2
+                    }
+                ]
+            }
+        ],
+        toolbar_visible: false});
+}
 
-    series
-        .tooltip()
-        .position('center-top')
-        .anchor('center-bottom')
-        .offsetX(0)
-        .offsetY(5)
-        .format('{%Value}');
+// Barchart by injury type
+function updateBarInjury() {
+    var chart = JSC.chart('bar-injury', {
+        debug: true,
+        type: 'column',
+        title_label_text:
+            'Amount of submissions of a specific injury type',
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%value',
+        xAxis: {
+            defaultTick: {
+                placement: 'inside',
+                label: {
+                    color: 'white',
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: 16
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> injuries where <br>of type <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Amount of submissions of a specific injury type',
+                points: [
+                    {
+                        name: 'Fracture',
+                        y: 10
+                    },
+                    {
+                        name: 'Snake bites',
+                        y: 99
+                    }
+                ]
+            }
+        ]
+    });
+}
 
+// Barchart by assistance type
+function updateBarAssistance() {
+    var chart = JSC.chart('bar-assistance', {
+        debug: true,
+        type: 'column',
+        title_label_text:
+            'Amount of submissions that used a specific assistance',
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%value',
+        xAxis: {
+            defaultTick: {
+                placement: 'inside',
+                label: {
+                    color: 'white',
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: 16
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> cases used <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Amount of submissions that used a specific assistance',
+                points: [
+                    {
+                        name: 'AreaSafe',
+                        y: 40
+                    },
+                    {
+                        name: 'SupportVictim',
+                        y: 10
+                    }
+                ]
+            }
+        ]
+    });
+}
 
-    chart.yScale().minimum(0);
-    chart.yAxis().labels().format('{%Value}');
+// Donut by training
+function updateDonutTraining(){
+    var chart = JSC.chart('donut-training', {
+        debug: true,
+        legend: {
+            template: '%icon %name',
+            position: 'inside center'
+        },
+        title: {
+            label: {text: 'Submissions by training type',style_fontSize: 16 },
+            position: 'center'
+        },
+        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
+        defaultAnnotation_label_style_fontSize: 16,
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> submissions had <br><b>%name</b> training',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Submissions by training type',
+                points: [
+                    {
+                        name: 'Red cross',
+                        y: 95
+                    },
+                    {
+                        name: 'Other',
+                        y: 5
+                    }
+                ]
+            }
+        ],
+        toolbar_visible: false});
+}
 
-    chart.tooltip().positionMode('point');
-    chart.interactivity().hoverMode('by-x');
-
-    chart.xAxis().title('Gender');
-    chart.yAxis().title('# People');
-
-    chart.container('barchartGender');
-
-    chart.draw();
-};
-
-// Donut chart by age
-function initDonutChartAge() {
-    var chart = anychart.pie([
-        ['<15', 64],
-        ['15-20', 93],
-        ['25-30', 25]
-    ]);
-
-    chart
-        .title('Submissions by age')
-        .radius('100%')
-        .innerRadius('30%');
-
-    chart.container('donutchartAge');
-    chart.draw();
-};
-
-// Donut chart by education
-function initDonutChartEducation() {
-    var chart = anychart.pie([
-        ['Uneducated', 93],
-        ['Primary School', 25],
-        ['High School', 50],
-        ['Bachelor\'s degree', 16],
-        ['Master\'s degree', 40],
-        ['Doctorate', 13]
-    ]);
-
-    chart
-        .title('Submissions by education')
-        .radius('100%')
-        .innerRadius('30%');
-
-    chart.container('donutchartEducation');
-    chart.draw();
-};
-
-// Donut chart by correct solution amount
-function initDonutChartSolution() {
-    var chart = anychart.pie([
-        ['Correct', 90],
-        ['Wrong', 10]
-    ]);
-
-    chart
-        .title('Submissions by amount of correct solutions')
-        .radius('100%')
-        .innerRadius('30%');
-
-    chart.container('donutchartSolution');
-    chart.draw();
-};
-
-// Donut chart by hospitalization required
-function initDonutChartHospitalization() {
-    var chart = anychart.pie([
-        ['Required', 30],
-        ['Not required', 70]
-    ]);
-
-    chart
-        .title('Submissions by amount of hospitalizations required')
-        .radius('100%')
-        .innerRadius('30%');
-
-    chart.container('donutchartHospitalization');
-    chart.draw();
-};
+// Donut by blended
+function updateDonutBlended(){
+    var chart = JSC.chart('donut-blended', {
+        debug: true,
+        legend: {
+            template: '%icon %name',
+            position: 'inside center'
+        },
+        title: {
+            label: {text: 'Amount of submissions that had blended training',style_fontSize: 16 },
+            position: 'center'
+        },
+        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
+        defaultAnnotation_label_style_fontSize: 16,
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> submissions were <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Amount of submissions that had blended training',
+                points: [
+                    {
+                        name: 'Blended',
+                        y: 45
+                    },
+                    {
+                        name: 'Not blended',
+                        y: 50
+                    },
+                    {
+                        name: 'Other',
+                        y: 10
+                    }
+                ]
+            }
+        ],
+        toolbar_visible: false});
+}
