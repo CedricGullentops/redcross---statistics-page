@@ -149,19 +149,19 @@ function getRawData(){
             let td2="<th>"+"assignDate"+"</th>";
             let td3="<th>"+"assistances"+"</th>";
             let td4="<th>"+"blendedTraining"+"</th>";
-            let td5="<th>"+"confidentApplyingFA"+"</th>";
+            let td5="<th>"+"confident"+"</th>";
             let td6="<th>"+"country"+"</th>";
             let td7="<th>"+"education"+"</th>";
             let td8="<th>"+"gender"+"</th>";
             let td9="<th>"+"hadFATraining"+"</th>";
-            let td10="<th>"+"hospitalisationRequired"+"</th>";
+            let td10="<th>"+"hosp. required"+"</th>";
             let td11="<th>"+"id"+"</th>";
             let td12="<th>"+"injuries"+"</th>";
             let td13="<th>"+"latitude"+"</th>";
             let td14="<th>"+"longitude"+"</th>";
             let td15="<th>"+"macAddress"+"</th>";
             let td16="<th>"+"numberOffATtraining"+"</th>";
-            let td17="<th>"+"otherTrainingProvider"+"</th>";
+            let td17="<th>"+"other provider"+"</th>";
             let td18="<th>"+"phNeeded"+"</th>";
             let td19="<th>"+"phTimeToArrive"+"</th>";
             let td20="<th>"+"phTypes"+"</th>";
@@ -210,9 +210,9 @@ function getRawData(){
 function getCalculatedValues(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats', function(response) {
             calculatedValues = JSON.parse(response);
+            updateGraphs();
         },
         JSON.stringify(currentSettings));
-    updateGraphs();
 }
 
 // Get list of assistances
@@ -249,7 +249,6 @@ function getInjuries(){
 function getCountries(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/countries', function(response) {
         settings.countries = JSON.parse(response);
-        console.log(settings.countries);
         let select = document.getElementById("settingCountry");
         for(let i = 0; i < settings.countries.length; i++){
             let country = settings.countries[i];
@@ -353,40 +352,7 @@ function updateBarAge() {
                     label_text: '%value'
                 },
                 name: 'Submissions by age',
-                points: [
-                    {
-                        name: '<15',
-                        y: 50
-                    },
-                    {
-                        name: '15-25',
-                        y: 80
-                    },
-                    {
-                        name: '35-45',
-                        y: 65
-                    },
-                    {
-                        name: '45-55',
-                        y: 24
-                    },
-                    {
-                        name: '55-65',
-                        y: 11
-                    },
-                    {
-                        name: '65-75',
-                        y: 6
-                    },
-                    {
-                        name: '75-85',
-                        y: 3
-                    },
-                    {
-                        name: '>85',
-                        y: 1
-                    }
-                ]
+                points: calculatedValues["byAge"]
             }
         ]
     });
