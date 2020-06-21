@@ -210,7 +210,6 @@ function getRawData(){
 function getCalculatedValues(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats', function(response) {
             calculatedValues = JSON.parse(response);
-            console.log("calculatedValues" + calculatedValues);
         },
         JSON.stringify(currentSettings));
     updateGraphs();
@@ -250,7 +249,8 @@ function getInjuries(){
 function getCountries(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/countries', function(response) {
         settings.countries = JSON.parse(response);
-        let select = document.getElementById("settingCountries");
+        console.log(settings.countries);
+        let select = document.getElementById("settingCountry");
         for(let i = 0; i < settings.countries.length; i++){
             let country = settings.countries[i];
             let el = document.createElement("option");

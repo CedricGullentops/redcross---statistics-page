@@ -3,8 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/statistics.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/statistics.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/1280px-Flag_of_the_Red_Cross.svg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/1280px-Flag_of_the_Red_Cross_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Belgian_Red_Cross_logo_resized.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Images/Belgian_Red_Cross_logo_resized_2.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +66,7 @@
       <workItem from="1592573491714" duration="12010000" />
       <workItem from="1592600972708" duration="59000" />
       <workItem from="1592649684450" duration="35240000" />
-      <workItem from="1592759435925" duration="5817000" />
+      <workItem from="1592759435925" duration="7009000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -108,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592759492856</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added most charts.">
+      <created>1592773483010</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1592773483010</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,7 +129,8 @@
     <MESSAGE value="Get raw data for second tab." />
     <MESSAGE value="Added table with raw data." />
     <MESSAGE value="Added index to commit." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added index to commit." />
+    <MESSAGE value="Added most charts." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added most charts." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -131,15 +141,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="2354" y="140" key="CommitChangelistDialog2" timestamp="1592759491959">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592773482275">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592756486745" />
+    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592773482275" />
     <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759491959" />
-    <state x="2472" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592759500186">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592773488480">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592756493014" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592773488480" />
     <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759500186" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
