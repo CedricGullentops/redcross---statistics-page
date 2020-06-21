@@ -98,6 +98,7 @@ function setEducation(){
 
 // The values calculated by the back-end
 let calculatedValues;
+let rawValues;
 
 // Heatmap
 let map, heatmap;
@@ -134,9 +135,73 @@ function downloadFile(){
 
 // Get raw data
 function getRawData(){
+    let elementExists = document.getElementById("mytable");
+    if (elementExists != null){
+        elementExists.remove();
+    }
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
-            calculatedValues = JSON.parse(response);
-            document.getElementById("dataWrapper").textContent = calculatedValues;
+            rawValues = JSON.parse(response);
+            let tbl=$("<table/>").attr("id","mytable");
+            $("#dataWrapper").append(tbl);
+
+            let tr="<tr>";
+            let td1="<th>"+"age"+"</th>";
+            let td2="<th>"+"assignDate"+"</th>";
+            let td3="<th>"+"assistances"+"</th>";
+            let td4="<th>"+"blendedTraining"+"</th>";
+            let td5="<th>"+"confidentApplyingFA"+"</th>";
+            let td6="<th>"+"country"+"</th>";
+            let td7="<th>"+"education"+"</th>";
+            let td8="<th>"+"gender"+"</th>";
+            let td9="<th>"+"hadFATraining"+"</th>";
+            let td10="<th>"+"hospitalisationRequired"+"</th>";
+            let td11="<th>"+"id"+"</th>";
+            let td12="<th>"+"injuries"+"</th>";
+            let td13="<th>"+"latitude"+"</th>";
+            let td14="<th>"+"longitude"+"</th>";
+            let td15="<th>"+"macAddress"+"</th>";
+            let td16="<th>"+"numberOffATtraining"+"</th>";
+            let td17="<th>"+"otherTrainingProvider"+"</th>";
+            let td18="<th>"+"phNeeded"+"</th>";
+            let td19="<th>"+"phTimeToArrive"+"</th>";
+            let td20="<th>"+"phTypes"+"</th>";
+            let td21="<th>"+"setting"+"</th>";
+            let td22="<th>"+"trainingByRC"+"</th>";
+            let td23="<th>"+"trainingByRC"+"</th></tr>";
+
+            $("#mytable").append(tr+td1+td2+td3+td4+td5+td6+td7+td8+td9+td10+td11
+                +td12+td13+td14+td15+td16+td17+td18+td19+td20+td21+td22+td23);
+
+            for(var i=0;i<rawValues.length;i++)
+            {
+                let tr="<tr>";
+                let td1="<td>"+rawValues[i]["age"]+"</td>";
+                let td2="<td>"+rawValues[i]["assignDate"]+"</td>";
+                let td3="<td>"+rawValues[i]["assistances"]+"</td>";
+                let td4="<td>"+rawValues[i]["blendedTraining"]+"</td>";
+                let td5="<td>"+rawValues[i]["confidentApplyingFA"]+"</td>";
+                let td6="<td>"+rawValues[i]["country"]+"</td>";
+                let td7="<td>"+rawValues[i]["education"]+"</td>";
+                let td8="<td>"+rawValues[i]["gender"]+"</td>";
+                let td9="<td>"+rawValues[i]["hadFATraining"]+"</td>";
+                let td10="<td>"+rawValues[i]["hospitalisationRequired"]+"</td>";
+                let td11="<td>"+rawValues[i]["id"]+"</td>";
+                let td12="<td>"+rawValues[i]["injuries"]+"</td>";
+                let td13="<td>"+rawValues[i]["latitude"]+"</td>";
+                let td14="<td>"+rawValues[i]["longitude"]+"</td>";
+                let td15="<td>"+rawValues[i]["macAddress"]+"</td>";
+                let td16="<td>"+rawValues[i]["numberOffATtraining"]+"</td>";
+                let td17="<td>"+rawValues[i]["otherTrainingProvider"]+"</td>";
+                let td18="<td>"+rawValues[i]["phNeeded"]+"</td>";
+                let td19="<td>"+rawValues[i]["phTimeToArrive"]+"</td>";
+                let td20="<td>"+rawValues[i]["phTypes"]+"</td>";
+                let td21="<td>"+rawValues[i]["setting"]+"</td>";
+                let td22="<td>"+rawValues[i]["trainingByRC"]+"</td>";
+                let td23="<td>"+rawValues[i]["trainingByRC"]+"</td></tr>";
+
+                $("#mytable").append(tr+td1+td2+td3+td4+td5+td6+td7+td8+td9+td10+td11
+                    +td12+td13+td14+td15+td16+td17+td18+td19+td20+td21+td22+td23);
+            }
         },
         JSON.stringify(currentSettings));
 }
