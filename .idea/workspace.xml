@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/statistics.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/statistics.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +60,7 @@
       <workItem from="1592211662569" duration="5385000" />
       <workItem from="1592573491714" duration="12010000" />
       <workItem from="1592600972708" duration="59000" />
-      <workItem from="1592649684450" duration="34585000" />
+      <workItem from="1592649684450" duration="35240000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -92,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592751956211</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added table with raw data.">
+      <created>1592756487500</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1592756487500</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,7 +107,8 @@
     <MESSAGE value="Temporary push for deployment to azure" />
     <MESSAGE value="Made get requests for almost all cases." />
     <MESSAGE value="Get raw data for second tab." />
-    <option name="LAST_COMMIT_MESSAGE" value="Get raw data for second tab." />
+    <MESSAGE value="Added table with raw data." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added table with raw data." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -113,14 +119,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592751955557">
+    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592756486745">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592751955557" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592751962483">
+    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592756486745" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592756493014">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592751962483" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592756493014" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
