@@ -63,31 +63,37 @@ function setCountry(){
     let element = document.getElementById("settingCountry");
     currentSettings.country = element.options[element.selectedIndex].value;
     getCalculatedValues();
+    getRawData();
 }
 function setAge(){
     let element = document.getElementById("settingAge");
     currentSettings.age = element.options[element.selectedIndex].value;
     getCalculatedValues();
+    getRawData();
 }
 function setGender(){
     let element = document.getElementById("settingGender");
     currentSettings.gender = element.options[element.selectedIndex].value;
     getCalculatedValues();
+    getRawData();
 }
 function setAssistances(){
     let element = document.getElementById("settingAssistances");
     currentSettings.assistance = element.options[element.selectedIndex].value;
     getCalculatedValues();
+    getRawData();
 }
 function setInjuries(){
     let element = document.getElementById("settingInjuries");
     currentSettings.injury = element.options[element.selectedIndex].value;
     getCalculatedValues();
+    getRawData();
 }
 function setEducation(){
     let element = document.getElementById("settingEducation");
     currentSettings.education = element.options[element.selectedIndex].value;
     getCalculatedValues();
+    getRawData();
 }
 
 // The values calculated by the back-end
@@ -106,6 +112,7 @@ function initAll(){
 
     // Get all datapoints based on current filter settings
     getCalculatedValues();
+    getRawData();
 
 
     initBarAge();
@@ -125,14 +132,23 @@ function downloadFile(){
         JSON.stringify(currentSettings));
 }
 
+// Get raw data
+function getRawData(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
+            calculatedValues = JSON.parse(response);
+            document.getElementById("dataWrapper").textContent = calculatedValues;
+        },
+        JSON.stringify(currentSettings));
+}
+
 // Get statistics from back-end based on currentSettings
 function getCalculatedValues(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats', function(response) {
             calculatedValues = JSON.parse(response);
-            console.log(calculatedValues);
+            console.log("calculatedValues" + calculatedValues);
         },
         JSON.stringify(currentSettings));
-    updateContent();
+    updateGraphs();
 }
 
 // Get list of assistances
@@ -199,8 +215,8 @@ function pressedDataTab(){
     document.getElementById('dataWrapper').style.display = 'block';
 }
 
-function updateContent(){
-    // TODO: update all graphs and tables based on currentValues
+function updateGraphs(){
+    // TODO: update all graphs based on currentValues
 }
 
 function initMap() {
