@@ -1,69 +1,207 @@
-window.initAll()
-
-var HttpClient = function() {
-    this.get = function(aUrl, aCallback) {
-        var anHttpRequest = new XMLHttpRequest();
+// HttpClient for get requests
+let HttpClient = function() {
+    this.get = function(aUrl, aCallback, body=null) {
+        let anHttpRequest = new XMLHttpRequest();
         anHttpRequest.onreadystatechange = function() {
-            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+            if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
                 aCallback(anHttpRequest.responseText);
-        }
+        };
         anHttpRequest.open( "GET", aUrl, true );
-        anHttpRequest.send( null );
+        anHttpRequest.send( body );
+    }
+};
+let client = new HttpClient();
+
+// Settings values from back-end
+class Settings {
+    constructor() {
+        this._countries = [];
+        this._injuries = [];
+        this._assistances = [];
+    }
+    get countries() {
+        return this._countries;
+    }
+    set countries(x) {
+        this._countries = x;
+    }
+
+    get injuries() {
+        return this._injuries;
+    }
+    set injuries(x) {
+        this._injuries = x;
+    }
+
+    get assistances() {
+        return this._assistances;
+    }
+    set assistances(x) {
+        this._assistances = x;
     }
 }
+let settings = new Settings();
 
-function initAll(){
-    var client = new HttpClient();
-    getAssistances(client);
+// Current settings as shown in html and their respective settable functions
+let currentSettings = {
+    gender: "",
+    typeOfFA: "",
+    injury: "",
+    assistance: "",
+    age: "",
+    country: "",
+    from: "",
+    to: ""
+    // TODO: add education: "All"
+};
 
-    // initBarAge();
-    // initMap();
-    // initBarChartGender();
-    // initDonutChartAge();
-    // initDonutChartEducation();
-    // initDonutChartSolution();
-    // initDonutChartHospitalization();
-}
-
-// Get list of assistances
-function getAssistances(client){
-    document.write("In here");
-    client.get('http://some/thing?with=arguments', function(response) {
-        var result = JSON.parse(response);
-        document.write(result);
-    });
-}
-
-// Getting data from back-end
-const userAction = async () => {
-    const response = await fetch('https://redcrossbackend.azurewebsites.net/Analytics/assistance.json', {
-        method: 'POST',
-        body: myBody, // string or object
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const myJson = await response.json(); //extract JSON from the http response
-    // do something with myJson
-
+function setTypeOfFA(){
+    // TODO: add this one
 }
 
 function setCountry(){
     let element = document.getElementById("settingCountry");
-    settings.location = element.options[element.selectedIndex].value;
+    currentSettings.country = element.options[element.selectedIndex].value;
+    getCalculatedValues();
+}
+function setAge(){
+    let element = document.getElementById("settingAge");
+    currentSettings.age = element.options[element.selectedIndex].value;
+    getCalculatedValues();
+}
+function setGender(){
+    let element = document.getElementById("settingGender");
+    currentSettings.gender = element.options[element.selectedIndex].value;
+    getCalculatedValues();
+}
+function setAssistances(){
+    let element = document.getElementById("settingAssistances");
+    currentSettings.assistance = element.options[element.selectedIndex].value;
+    getCalculatedValues();
+}
+function setInjuries(){
+    let element = document.getElementById("settingInjuries");
+    currentSettings.injury = element.options[element.selectedIndex].value;
+    getCalculatedValues();
+}
+function setEducation(){
+    let element = document.getElementById("settingEducation");
+    currentSettings.education = element.options[element.selectedIndex].value;
+    getCalculatedValues();
 }
 
-//class for settings
-var settings = {
-    location: "Africa",
-    injury: "All",
-    gender: "All",
-    age: "All",
-    education: "All"
-};
+// The values calculated by the back-end
+let calculatedValues;
 
 // Heatmap
-var map, heatmap;
+let map, heatmap;
+
+window.initAll();
+
+function initAll(){
+    // Initialize settings by getting back-end information
+    getAssistances();
+    getInjuries();
+    getCountries();
+
+    // Get all datapoints based on current filter settings
+    getCalculatedValues();
+
+
+    initBarAge();
+
+    initBarChartGender();
+    initDonutChartAge();
+    initDonutChartEducation();
+    initDonutChartSolution();
+    initDonutChartHospitalization();
+
+    initMap();
+}
+
+// Get list of assistances
+function downloadFile(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/export', function(response) {console.log(response)},
+        JSON.stringify(currentSettings));
+}
+
+// Get statistics from back-end based on currentSettings
+function getCalculatedValues(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats', function(response) {
+            calculatedValues = JSON.parse(response);
+            console.log(calculatedValues);
+        },
+        JSON.stringify(currentSettings));
+    updateContent();
+}
+
+// Get list of assistances
+function getAssistances(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/assistances', function(response) {
+        settings.assistances = JSON.parse(response);
+        let select = document.getElementById("settingAssistances");
+        for(let i = 0; i < settings.assistances.length; i++){
+            let assist = settings.assistances[i];
+            let el = document.createElement("option");
+            el.textContent = assist;
+            el.value = assist;
+            select.appendChild(el);
+        }
+    });
+}
+
+// Get list of injuries
+function getInjuries(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/injuries', function(response) {
+        settings.injuries = JSON.parse(response);
+        let select = document.getElementById("settingInjuries");
+        for(let i = 0; i < settings.injuries.length; i++){
+            let injury = settings.injuries[i];
+            let el = document.createElement("option");
+            el.textContent = injury;
+            el.value = injury;
+            select.appendChild(el);
+        }
+    });
+}
+
+// Get list of countries
+function getCountries(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/countries', function(response) {
+        settings.countries = JSON.parse(response);
+        let select = document.getElementById("settingCountries");
+        for(let i = 0; i < settings.countries.length; i++){
+            let country = settings.countries[i];
+            let el = document.createElement("option");
+            el.textContent = country;
+            el.value = country;
+            select.appendChild(el);
+        }
+    });
+}
+
+function pressedStatisticsTab(){
+    document.getElementById("statisticsTab").className = "nav-item active";
+    document.getElementById("dataTab").className = "nav-item";
+
+    document.getElementById('swappableContent').style.display = 'block';
+    document.getElementById('mapWrapper').style.display = 'block';
+    document.getElementById('dataWrapper').style.display = 'none';
+
+}
+
+function pressedDataTab(){
+    document.getElementById("dataTab").className = "nav-item active";
+    document.getElementById("statisticsTab").className = "nav-item";
+
+    document.getElementById('swappableContent').style.display = 'none';
+    document.getElementById('mapWrapper').style.display = 'none';
+    document.getElementById('dataWrapper').style.display = 'block';
+}
+
+function updateContent(){
+    // TODO: update all graphs and tables based on currentValues
+}
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -86,6 +224,27 @@ function getPoints() {
         new google.maps.LatLng(-8.721729, 23.225264)
     ];
 }
+
+////////////////////////////////////////////
+////////////////////////////////////////////
+
+
+
+
+// Getting data from back-end
+const userAction = async () => {
+    const response = await fetch('https://redcrossbackend.azurewebsites.net/Analytics/assistance.json', {
+        method: 'POST',
+        body: myBody, // string or object
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const myJson = await response.json(); //extract JSON from the http response
+    // do something with myJson
+
+}
+
 
 // Barchart by age
 function initBarAge() {
