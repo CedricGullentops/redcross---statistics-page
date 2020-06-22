@@ -1,13 +1,13 @@
 // HttpClient for get requests
 let HttpClient = function() {
-    this.get = function(aUrl, aCallback, body=null) {
+    this.get = function(aUrl, aCallback) {
         let anHttpRequest = new XMLHttpRequest();
         anHttpRequest.onreadystatechange = function() {
             if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
                 aCallback(anHttpRequest.responseText);
         };
         anHttpRequest.open( "GET", aUrl, true );
-        anHttpRequest.send( body );
+        anHttpRequest.send(null );
     }
 };
 let client = new HttpClient();
@@ -135,7 +135,7 @@ let rawValues=[];
 
 // Heatmap
 let map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
+    zoom: 3,
     center: {lat: 4.162709, lng: 19.7901007},
     mapTypeId: 'roadmap'
 });
@@ -164,8 +164,40 @@ function initAll(){
 
 // Get list of assistances
 function downloadFile(){
-    client.get('https://redcrossbackend.azurewebsites.net/Analytics/export', function(response) {console.log(response)},
-        JSON.stringify(currentSettings));
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/export', function(response) {},
+        currentSettings);
+}
+
+function setParams(){
+    let query = "?";
+    if (currentSettings.gender && !currentSettings.gender=="") {
+        query += ((query=="?")? "" : "&") + "gender=" +  currentSettings.gender;
+    }
+    if (currentSettings.typeOfFA && !currentSettings.typeOfFA=="") {
+        query += ((query=="?")? "" : "&") + "typeOfFA=" + currentSettings.typeOfFA;
+    }
+    if (currentSettings.injury && !currentSettings.injury=="") {
+        query += ((query=="?")? "" : "&") + "injury=" +currentSettings.injury;
+    }
+    if (currentSettings.assistance && !currentSettings.assistance=="") {
+        query += ((query=="?")? "" : "&") + "assistance=" +currentSettings.assistance;
+    }
+    if (currentSettings.age && !currentSettings.age=="") {
+        query += ((query=="?")? "" : "&") +"age=" + currentSettings.age;
+    }
+    if (currentSettings.country && !currentSettings.country=="") {
+        query += ((query=="?")? "" : "&") +"country=" + currentSettings.country;
+    }
+    if (currentSettings.from && !currentSettings.from=="") {
+        query += ((query=="?")? "" : "&") +"from=" + currentSettings.from;
+    }
+    if (currentSettings.to && !currentSettings.to=="") {
+        query += ((query=="?")? "" : "&") + "to=" +currentSettings.to;
+    }
+    if (currentSettings.education && !currentSettings.education=="") {
+        query += ((query=="?")? "" : "&") + "education=" +currentSettings.education;
+    }
+    return query;
 }
 
 // Get raw data
@@ -174,7 +206,7 @@ function getRawData(){
     if (elementExists != null){
         elementExists.remove();
     }
-    client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw' + setParams(), function(response) {
             rawValues = JSON.parse(response);
 
             document.getElementById("amountOfCases").innerHTML = "There are " + rawValues.length + " cases that correspond to these settings.";
@@ -240,17 +272,15 @@ function getRawData(){
                 $("#mytable").append(tr+td1+td2+td3+td4+td5+td6+td7+td8+td9+td10+td11
                     +td12+td13+td14+td15+td16+td17+td18+td19+td20+td21+td22+td23);
             }
-        },
-        JSON.stringify(currentSettings));
+        });
 }
 
 // Get statistics from back-end based on currentSettings
 function getCalculatedValues(){
-    client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats', function(response) {
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats' +  setParams(), function(response) {
             calculatedValues = JSON.parse(response);
             updateGraphs();
-        },
-        JSON.stringify(currentSettings));
+        });
 }
 
 // Get list of assistances
@@ -336,17 +366,35 @@ function pressedDataTab(){
 // update all graphs based on currentValues
 function updateGraphs(){
     updateProfHelp();
-    updateBarAge();
-    updateBarEducation();
-    updateDonutCorrectSolution();
-    updateDonutHospitalization();
-    updateDonutGender();
-    updateBarTraining();
-    updateBarInjury();
-    updateBarAssistance();
-    updateDonutTraining();
-    updateDonutBlended();
+    checkValidity("byAge","bar-age",updateBarAge);
+    checkValidity("byEducation","bar-edu",updateBarEducation);
+    checkValidity("byCorrectSolution","donut-corr_sol",updateDonutCorrectSolution);
+    checkValidity("byHospitalization","donut-hosp_req",updateDonutHospitalization);
+    checkValidity("byGender","donut-gender",updateDonutGender);
+    checkValidity("byTraining","bar-training",updateBarTraining);
+    checkValidity("byInjury","bar-injury",updateBarInjury);
+    checkValidity("byAssistance","bar-assistance",updateBarAssistance);
+    checkValidity("byBlended","donut-blended",updateDonutBlended);
     updateMap();
+}
+
+function checkValidity(id, element, func){
+    if (isNotEmpty(id)){
+        document.getElementById(element).style.display = 'block';
+        func();
+    }
+    else{
+        document.getElementById(element).style.display = 'none';
+    }
+}
+
+function isNotEmpty(id){
+    if (calculatedValues[id] != null){
+        if (calculatedValues[id].length !== 0){
+           return true;
+        }
+    }
+    return false;
 }
 
 ////////////////////////////////////////////
@@ -651,24 +699,6 @@ function updateBarAssistance() {
     });
 }
 
-// Donut by training
-function updateDonutTraining(){
-    var chart = JSC.chart('donut-training', {
-        debug: true,
-        legend: {
-            template: '%icon %name',
-            position: 'inside center'
-        },
-        title: {
-            label: {text: 'Submissions by training type',style_fontSize: 16 },
-            position: 'center'
-        },
-        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
-        defaultAnnotation_label_style_fontSize: 16,
-        series: calculatedValues["byTraining"],
-        toolbar_visible: false});
-}
-
 // Donut by blended
 function updateDonutBlended(){
     var chart = JSC.chart('donut-blended', {
@@ -703,7 +733,7 @@ function updateDonutBlended(){
 }
 
 function updateMap(){
-    let filteredValues = calculatedValues["byMap"].filter(function (el) {
+    let filteredValues = calculatedValues["byMap"]["coordinates"].filter(function (el) {
         return !(el["latitude"] === 0 && el["longitude"] === 0);
     });
 
@@ -712,6 +742,12 @@ function updateMap(){
     {
         newArray.push(new google.maps.LatLng(filteredValues[i]["latitude"], filteredValues[i]["longitude"]));
     }
+
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 3,
+        center: {lat: calculatedValues["byMap"]["centerLatitude"], lng: calculatedValues["byMap"]["centerLongitude"]},
+        mapTypeId: 'roadmap'
+    });
 
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: newArray,
