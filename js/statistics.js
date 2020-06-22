@@ -176,6 +176,9 @@ function getRawData(){
     }
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
             rawValues = JSON.parse(response);
+
+            document.getElementById("amountOfCases").innerHTML = "There are " + rawValues.length + " cases that correspond to these settings.";
+
             let tbl=$("<table/>").attr("id","mytable");
             $("#dataWrapper").append(tbl);
 
@@ -332,26 +335,18 @@ function pressedDataTab(){
 
 // update all graphs based on currentValues
 function updateGraphs(){
-    updateText();
-    updateMap();
-    console.log("1");
+    updateProfHelp();
     updateBarAge();
-    console.log("2");
     updateBarEducation();
-    console.log("3");
     updateDonutCorrectSolution();
-    console.log("4");
     updateDonutHospitalization();
-    console.log("5");
     updateDonutGender();
-    console.log("6");
-    //TODO: by number of training bar/donut?
+    updateBarTraining();
     updateBarInjury();
-    console.log("7");
+    updateBarAssistance();
     updateDonutTraining();
-    console.log("8");
     updateDonutBlended();
-    console.log("9");
+    updateMap();
 }
 
 ////////////////////////////////////////////
@@ -536,7 +531,45 @@ function updateDonutGender(){
         toolbar_visible: false});
 }
 
-//TODO: byNumberInjury
+// Barchart by number of trainings
+function updateBarTraining() {
+    var chart = JSC.chart('bar-training', {
+        debug: true,
+        type: 'column',
+        title_label_text:
+            'Amount of submissions by number of trainings',
+        legend_visible: false,
+        yAxis_defaultTick_label_text: '%value',
+        xAxis: {
+            defaultTick: {
+                placement: 'inside',
+                label: {
+                    color: 'white',
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: 16
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                defaultPoint: {
+                    tooltip:
+                        '<b>%yValue</b> trainings <br>of type <b>%name</b>',
+                    marker: {
+                        visible: true,
+                        size: 40,
+                        fill: 'azure'
+                    },
+                    label_text: '%value'
+                },
+                name: 'Amount of submissions by number of trainings',
+                points: calculatedValues["byInjury"],
+            }
+        ]
+    });
+}
 
 // Barchart by injury type
 function updateBarInjury() {
@@ -686,7 +719,6 @@ function updateMap(){
     });
 }
 
-function updateText(){
-    document.getElementById("amountOfCases").innerHTML = "There are " + rawValues.length + " cases that correspond to these settings.";
+function updateProfHelp(){
     document.getElementById("percentageProfHelp").innerHTML = "In " + calculatedValues["byPercentProfHelp"] + "% of cases, professional help was needed.";
 }
