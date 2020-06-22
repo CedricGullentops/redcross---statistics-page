@@ -139,7 +139,26 @@
                     </select>
                 </div>
 
-                <!-- TODO: Add a filter for date -->
+                <div class="col-lg-auto">
+                    Type of First Aid:
+                    <select id="settingFA" class="browser-default custom-select" onchange="setTypeOfFA()">
+                        <option selected value="">All</option>
+                        <option selected value="Red Cross FA Training(s)">Red Cross FA Training(s)</option>
+                        <option selected value="Other FA Training(s)">Other FA Training(s)</option>
+                        <option selected value="Red Cross & Other FA Trainings">Red Cross & Other FA Trainings</option>
+                        <option selected value="None">None</option>
+                    </select>
+                </div>
+
+                <div class="col-lg-auto">
+                    From:
+                    <input type="date" id="settingFrom" class="browser-default custom-select" name="from" onchange="setFrom()">
+                </div>
+
+                <div class="col-lg-auto">
+                    To:
+                    <input type="date" id="settingTo" class="browser-default custom-select" name="to" onchange="setTo()">
+                </div>
             </div>
         </div>
     </div>
@@ -148,7 +167,7 @@
         <div class="statistic container-lg">
             <!-- TODO: give the statistic class a good css -->
             <div class="row">
-                <a>There are X cases that correspond to these settings.</a>
+                <a id="amountOfCases"></a>
                 <!-- TODO: fill in statistic -->
             </div>
         </div>
@@ -189,7 +208,7 @@
 
         <div class="statistic container-lg">
             <div class="row">
-                <a>In Y% of cases, professional help was needed.</a>
+                <a id="percentageProfHelp"></a>
                 <!-- TODO: fill in statistic -->
             </div>
         </div>

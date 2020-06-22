@@ -18,6 +18,7 @@ class Settings {
         this._countries = [];
         this._injuries = [];
         this._assistances = [];
+        this._educations = [];
     }
     get countries() {
         return this._countries;
@@ -39,6 +40,13 @@ class Settings {
     set assistances(x) {
         this._assistances = x;
     }
+
+    get educations() {
+        return this._educations;
+    }
+    set educations(x) {
+        this._educations = x;
+    }
 }
 let settings = new Settings();
 
@@ -51,60 +59,91 @@ let currentSettings = {
     age: "",
     country: "",
     from: "",
-    to: ""
-    // TODO: add education: "All"
+    to: "",
+    education: ""
 };
 
 // Things to do when a filter value is updated
 // TODO: when a filters value changes, check which charts are still valid to show
-
 function setTypeOfFA(){
-    // TODO: add this one
+    let element = document.getElementById("settingFA");
+    currentSettings.typeOfFA = element.options[element.selectedIndex].value;
+    getData();
 }
 
 function setCountry(){
     let element = document.getElementById("settingCountry");
     currentSettings.country = element.options[element.selectedIndex].value;
-    getCalculatedValues();
-    getRawData();
+    getData();
 }
 function setAge(){
     let element = document.getElementById("settingAge");
     currentSettings.age = element.options[element.selectedIndex].value;
-    getCalculatedValues();
-    getRawData();
+    getData();
 }
 function setGender(){
     let element = document.getElementById("settingGender");
     currentSettings.gender = element.options[element.selectedIndex].value;
-    getCalculatedValues();
-    getRawData();
+    getData();
 }
 function setAssistances(){
     let element = document.getElementById("settingAssistances");
     currentSettings.assistance = element.options[element.selectedIndex].value;
-    getCalculatedValues();
-    getRawData();
+    getData();
 }
 function setInjuries(){
     let element = document.getElementById("settingInjuries");
     currentSettings.injury = element.options[element.selectedIndex].value;
-    getCalculatedValues();
-    getRawData();
+    getData();
 }
 function setEducation(){
     let element = document.getElementById("settingEducation");
     currentSettings.education = element.options[element.selectedIndex].value;
+    getData();
+}
+function setFrom(){
+    let element = document.getElementById("settingFrom");
+    currentSettings.from = element.options[element.selectedIndex].value;
+    getData();
+}
+function setTo(){
+    let element = document.getElementById("settingTo");
+    currentSettings.to = element.options[element.selectedIndex].value;
+    getData();
+}
+function getData(){
     getCalculatedValues();
     getRawData();
 }
 
 // The values calculated by the back-end
-let calculatedValues;
-let rawValues;
+let calculatedValues={
+    "byAge": [],
+    "byEducation": [],
+    "byCorrectSolution": [],
+    "byHospitalization": [],
+    "byMap": [],
+    "byGender": [],
+    "byNumberTraining": [],
+    "byInjury": [],
+    "byAssistance": [],
+    "byTraining": [],
+    "byBlended": [],
+    "byPercentProfHelp": 0
+};
+let rawValues=[];
 
 // Heatmap
-let map, heatmap;
+let map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: 4.162709, lng: 19.7901007},
+    mapTypeId: 'roadmap'
+});
+
+let heatmap = new google.maps.visualization.HeatmapLayer({
+    data: [],
+    map: map
+});
 
 window.initAll();
 
@@ -116,15 +155,11 @@ function initAll(){
     getAssistances();
     getInjuries();
     getCountries();
+    getEducations();
 
     // Get all datapoints based on current filter settings
     getCalculatedValues();
     getRawData();
-
-    // Initialize all graphs
-    updateGraphs();
-
-    initMap();
 }
 
 // Get list of assistances
@@ -172,7 +207,7 @@ function getRawData(){
             $("#mytable").append(tr+td1+td2+td3+td4+td5+td6+td7+td8+td9+td10+td11
                 +td12+td13+td14+td15+td16+td17+td18+td19+td20+td21+td22+td23);
 
-            for(var i=0;i<rawValues.length;i++)
+            for(let i=0;i<rawValues.length;i++)
             {
                 let tr="<tr>";
                 let td1="<td>"+rawValues[i]["age"]+"</td>";
@@ -260,6 +295,21 @@ function getCountries(){
     });
 }
 
+// Get list of educations
+function getEducations(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/educations', function(response) {
+        settings.educations = JSON.parse(response);
+        let select = document.getElementById("settingEducation");
+        for(let i = 0; i < settings.educations.length; i++){
+            let assist = settings.educations[i];
+            let el = document.createElement("option");
+            el.textContent = assist;
+            el.value = assist;
+            select.appendChild(el);
+        }
+    });
+}
+
 // Change elements when changing tabs (make it look like there are 2 pages)
 function pressedStatisticsTab(){
     document.getElementById("statisticsTab").className = "nav-item active";
@@ -282,37 +332,26 @@ function pressedDataTab(){
 
 // update all graphs based on currentValues
 function updateGraphs(){
+    updateText();
+    updateMap();
+    console.log("1");
     updateBarAge();
+    console.log("2");
     updateBarEducation();
+    console.log("3");
     updateDonutCorrectSolution();
+    console.log("4");
     updateDonutHospitalization();
+    console.log("5");
     updateDonutGender();
+    console.log("6");
     //TODO: by number of training bar/donut?
     updateBarInjury();
+    console.log("7");
     updateDonutTraining();
+    console.log("8");
     updateDonutBlended();
-}
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: {lat: 4.162709, lng: 19.7901007},
-        mapTypeId: 'roadmap'
-    });
-
-    heatmap = new google.maps.visualization.HeatmapLayer({
-        data: getPoints(),
-        map: map
-    });
-}
-
-function getPoints() {
-    return [
-        {location: new google.maps.LatLng(10.045843, -10.134802), weight: 10},
-        new google.maps.LatLng(17.075164, -10.3820100),
-        new google.maps.LatLng(-8.634638, 23.235982),
-        new google.maps.LatLng(-8.721729, 23.225264)
-    ];
+    console.log("9");
 }
 
 ////////////////////////////////////////////
@@ -352,7 +391,7 @@ function updateBarAge() {
                     label_text: '%value'
                 },
                 name: 'Submissions by age',
-                points: calculatedValues["byAge"]
+                points: calculatedValues["byAge"],
             }
         ]
     });
@@ -392,32 +431,7 @@ function updateBarEducation(){
                     label_text: '%value'
                 },
                 name: 'Submissions by education',
-                points: [
-                    {
-                        name: 'No education',
-                        y: 60
-                    },
-                    {
-                        name: 'Primary school',
-                        y: 120
-                    },
-                    {
-                        name: 'High school',
-                        y: 90
-                    },
-                    {
-                        name: 'Bachelor\'s degree',
-                        y: 30
-                    },
-                    {
-                        name: 'Master\'s degree',
-                        y: 12
-                    },
-                    {
-                        name: 'Phd',
-                        y: 3
-                    }
-                ]
+                points: calculatedValues["byEducation"],
             }
         ]
     });
@@ -450,16 +464,7 @@ function updateDonutCorrectSolution(){
                     label_text: '%value'
                 },
                 name: 'Submissions by correct solution provided',
-                points: [
-                    {
-                        name: 'Correct solution',
-                        y: 90
-                    },
-                    {
-                        name: 'Uncorrect solution',
-                        y: 10
-                    }
-                ]
+                points: calculatedValues["byCorrectSolution"],
             }
         ],
         toolbar_visible: false});
@@ -492,16 +497,7 @@ function updateDonutHospitalization(){
                     label_text: '%value'
                 },
                 name: 'Submissions by hospitalization required',
-                points: [
-                    {
-                        name: 'Hospitalization required',
-                        y: 30
-                    },
-                    {
-                        name: 'Not required',
-                        y: 70
-                    }
-                ]
+                points: calculatedValues["byHospitalization"],
             }
         ],
         toolbar_visible: false});
@@ -534,24 +530,13 @@ function updateDonutGender(){
                     label_text: '%value'
                 },
                 name: 'Submissions by gender',
-                points: [
-                    {
-                        name: 'M',
-                        y: 45
-                    },
-                    {
-                        name: 'F',
-                        y: 55
-                    },
-                    {
-                        name: 'X',
-                        y: 2
-                    }
-                ]
+                points: calculatedValues["byGender"],
             }
         ],
         toolbar_visible: false});
 }
+
+//TODO: byNumberInjury
 
 // Barchart by injury type
 function updateBarInjury() {
@@ -587,16 +572,7 @@ function updateBarInjury() {
                     label_text: '%value'
                 },
                 name: 'Amount of submissions of a specific injury type',
-                points: [
-                    {
-                        name: 'Fracture',
-                        y: 10
-                    },
-                    {
-                        name: 'Snake bites',
-                        y: 99
-                    }
-                ]
+                points: calculatedValues["byInjury"],
             }
         ]
     });
@@ -636,16 +612,7 @@ function updateBarAssistance() {
                     label_text: '%value'
                 },
                 name: 'Amount of submissions that used a specific assistance',
-                points: [
-                    {
-                        name: 'AreaSafe',
-                        y: 40
-                    },
-                    {
-                        name: 'SupportVictim',
-                        y: 10
-                    }
-                ]
+                points: calculatedValues["byAssistance"],
             }
         ]
     });
@@ -665,31 +632,7 @@ function updateDonutTraining(){
         },
         defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
         defaultAnnotation_label_style_fontSize: 16,
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> submissions had <br><b>%name</b> training',
-                    marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
-                    },
-                    label_text: '%value'
-                },
-                name: 'Submissions by training type',
-                points: [
-                    {
-                        name: 'Red cross',
-                        y: 95
-                    },
-                    {
-                        name: 'Other',
-                        y: 5
-                    }
-                ]
-            }
-        ],
+        series: calculatedValues["byTraining"],
         toolbar_visible: false});
 }
 
@@ -720,21 +663,30 @@ function updateDonutBlended(){
                     label_text: '%value'
                 },
                 name: 'Amount of submissions that had blended training',
-                points: [
-                    {
-                        name: 'Blended',
-                        y: 45
-                    },
-                    {
-                        name: 'Not blended',
-                        y: 50
-                    },
-                    {
-                        name: 'Other',
-                        y: 10
-                    }
-                ]
+                points: calculatedValues["byBlended"],
             }
         ],
         toolbar_visible: false});
+}
+
+function updateMap(){
+    let filteredValues = calculatedValues["byMap"].filter(function (el) {
+        return !(el["latitude"] === 0 && el["longitude"] === 0);
+    });
+
+    let newArray = [];
+    for(let i=0;i<filteredValues.length;i++)
+    {
+        newArray.push(new google.maps.LatLng(filteredValues[i]["latitude"], filteredValues[i]["longitude"]));
+    }
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: newArray,
+        map: map
+    });
+}
+
+function updateText(){
+    document.getElementById("amountOfCases").innerHTML = "There are " + rawValues.length + " cases that correspond to these settings.";
+    document.getElementById("percentageProfHelp").innerHTML = "In " + calculatedValues["byPercentProfHelp"] + "% of cases, professional help was needed.";
 }
