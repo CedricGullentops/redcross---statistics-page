@@ -486,7 +486,7 @@ function updateDonutCorrectSolution(){
         debug: true,
         legend: {
             template: '%icon %name',
-            position: 'inside center'
+            position: 'right'
         },
         title: {
             label: {text: 'Submissions by correct solution provided',style_fontSize: 16 },
@@ -500,9 +500,7 @@ function updateDonutCorrectSolution(){
                     tooltip:
                         '<b>%yValue</b> submissions were <br>of type <b>%name</b>',
                     marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
+                        visible: false
                     },
                     label_text: '%value'
                 },
@@ -519,7 +517,7 @@ function updateDonutHospitalization(){
         debug: true,
         legend: {
             template: '%icon %name',
-            position: 'inside center'
+            position: 'right'
         },
         title: {
             label: {text: 'Submissions by hospitalization required',style_fontSize: 16 },
@@ -533,9 +531,7 @@ function updateDonutHospitalization(){
                     tooltip:
                         '<b>%yValue</b> cases of <br><b>%name</b>',
                     marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
+                        visible: false
                     },
                     label_text: '%value'
                 },
@@ -552,7 +548,7 @@ function updateDonutGender(){
         debug: true,
         legend: {
             template: '%icon %name',
-            position: 'inside center'
+            position: 'right'
         },
         title: {
             label: {text: 'Submissions by gender',style_fontSize: 16 },
@@ -566,9 +562,7 @@ function updateDonutGender(){
                     tooltip:
                         '<b>%yValue</b> submissions by <b>%name</b>',
                     marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
+                        visible: false
                     },
                     label_text: '%value'
                 },
@@ -705,7 +699,7 @@ function updateDonutBlended(){
         debug: true,
         legend: {
             template: '%icon %name',
-            position: 'inside center'
+            position: 'right'
         },
         title: {
             label: {text: 'Amount of submissions that had blended training',style_fontSize: 16 },
@@ -719,9 +713,7 @@ function updateDonutBlended(){
                     tooltip:
                         '<b>%yValue</b> submissions were <b>%name</b>',
                     marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
+                        visible: false
                     },
                     label_text: '%value'
                 },
