@@ -12,7 +12,7 @@ let HttpClient = function() {
 };
 let client = new HttpClient();
 
-// Settings values from back-end
+// Variable for settings values from back-end
 class Settings {
     constructor() {
         this._countries = [];
@@ -68,50 +68,43 @@ let currentSettings = {
 function setTypeOfFA(){
     let element = document.getElementById("settingFA");
     currentSettings.typeOfFA = element.options[element.selectedIndex].value;
-    getData();
 }
 
 function setCountry(){
     let element = document.getElementById("settingCountry");
     currentSettings.country = element.options[element.selectedIndex].value;
-    getData();
 }
 function setAge(){
     let element = document.getElementById("settingAge");
     currentSettings.age = element.options[element.selectedIndex].value;
-    getData();
 }
 function setGender(){
     let element = document.getElementById("settingGender");
     currentSettings.gender = element.options[element.selectedIndex].value;
-    getData();
 }
 function setAssistances(){
     let element = document.getElementById("settingAssistances");
     currentSettings.assistance = element.options[element.selectedIndex].value;
-    getData();
 }
 function setInjuries(){
     let element = document.getElementById("settingInjuries");
     currentSettings.injury = element.options[element.selectedIndex].value;
-    getData();
 }
 function setEducation(){
     let element = document.getElementById("settingEducation");
     currentSettings.education = element.options[element.selectedIndex].value;
-    getData();
 }
 function setFrom(){
     let element = document.getElementById("settingFrom");
     currentSettings.from = element.options[element.selectedIndex].value;
-    getData();
 }
 function setTo(){
     let element = document.getElementById("settingTo");
     currentSettings.to = element.options[element.selectedIndex].value;
-    getData();
 }
-function getData(){
+
+function submitSettings(){
+    document.getElementById('smallLoader').style.display = 'block';
     getCalculatedValues();
     getRawData();
 }
@@ -134,22 +127,25 @@ let calculatedValues={
 let rawValues=[];
 
 // Heatmap
-let map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 3,
-    center: {lat: 4.162709, lng: 19.7901007},
-    mapTypeId: 'roadmap'
-});
+let map, directionsDisplay, directionsService;
 
-let heatmap = new google.maps.visualization.HeatmapLayer({
-    data: [],
-    map: map
-});
+function initializeMap() {
+    let directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var mapOptions = { zoom:3, mapTypeId: google.maps.MapTypeId.ROADMAP, center: new google.maps.LatLng(4.162709, 19.7901007) }
+    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    directionsDisplay.setMap(map);
+}
 
+// Initializes all elements
 window.initAll();
-
 function initAll(){
     // Make this element invisible, acts like a second tab instead
     document.getElementById('dataWrapper').style.display = 'none';
+    document.getElementById('smallLoader').style.display = 'block';
+
+    // Initialize map
+    initializeMap();
 
     // Initialize settings by getting back-end information
     getAssistances();
@@ -164,10 +160,35 @@ function initAll(){
 
 // Get list of assistances
 function downloadFile(){
-    client.get('https://redcrossbackend.azurewebsites.net/Analytics/export', function(response) {},
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/export', function(response) {
+            //let csv = JSON2CSV(JSON.parse(response));
+
+            // console.log(response);
+            // let json = response;
+            // let fields = Object.keys(json[0]);
+            // let replacer = function(key, value) { return value === null ? '' : value };
+            // let csv = json.map(function(row){
+            //     return fields.map(function(fieldName){
+            //         return JSON.stringify(row[fieldName], replacer)
+            //     }).join(',')
+            // });
+            // csv.unshift(fields.join(','));
+            // csv = csv.join('\r\n');
+            //
+            // let downloadLink = document.createElement("a");
+            // let blob = new Blob(["\ufeff", csv]);
+            // let url = URL.createObjectURL(blob);
+            // downloadLink.href = url;
+            // downloadLink.download = "data.csv";
+            //
+            // document.body.appendChild(downloadLink);
+            // downloadLink.click();
+            // document.body.removeChild(downloadLink);
+        },
         currentSettings);
 }
 
+// Creates the query for get requests based on currentSettings
 function setParams(){
     let query = "?";
     if (currentSettings.gender && !currentSettings.gender=="") {
@@ -209,7 +230,7 @@ function getRawData(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw' + setParams(), function(response) {
             rawValues = JSON.parse(response);
 
-            document.getElementById("amountOfCases").innerHTML = "There are " + rawValues.length + " cases that correspond to these settings.";
+            document.getElementById("amountOfCases").innerHTML = "There are <b>" + rawValues.length + "</b> cases that correspond to these settings.";
 
             let tbl=$("<table/>").attr("id","mytable");
             $("#dataWrapper").append(tbl);
@@ -272,6 +293,7 @@ function getRawData(){
                 $("#mytable").append(tr+td1+td2+td3+td4+td5+td6+td7+td8+td9+td10+td11
                     +td12+td13+td14+td15+td16+td17+td18+td19+td20+td21+td22+td23);
             }
+        document.getElementById('smallLoader').style.display = 'none';
         });
 }
 
@@ -366,28 +388,42 @@ function pressedDataTab(){
 // update all graphs based on currentValues
 function updateGraphs(){
     updateProfHelp();
-    checkValidity("byAge","bar-age",updateBarAge);
-    checkValidity("byEducation","bar-edu",updateBarEducation);
-    checkValidity("byCorrectSolution","donut-corr_sol",updateDonutCorrectSolution);
-    checkValidity("byHospitalization","donut-hosp_req",updateDonutHospitalization);
-    checkValidity("byGender","donut-gender",updateDonutGender);
-    checkValidity("byTraining","bar-training",updateBarTraining);
-    checkValidity("byInjury","bar-injury",updateBarInjury);
-    checkValidity("byAssistance","bar-assistance",updateBarAssistance);
-    checkValidity("byBlended","donut-blended",updateDonutBlended);
+    checkValidity("byAge","bar-age", updateBarChart, 'Amount of submissions by age',
+        '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>');
+    checkValidity("byEducation","bar-edu", updateBarChart, 'Amount of submissions by education',
+        '<b>%yValue</b> people that submitted have <br><b>%name</b> as their highest form of education');
+    checkValidity("byTraining","bar-training", updateBarChart,
+        'Amount of submissions by number of trainings', '<b>%yValue</b> trainings <br>of type <b>%name</b>');
+    checkValidity("byInjury","bar-injury", updateBarChart,
+        'Amount of submissions of a specific injury type', '<b>%yValue</b> injuries where <br>of type <b>%name</b>');
+    checkValidity("byAssistance","bar-assistance", updateBarChart,
+        'Amount of submissions that used a specific assistance', '<b>%yValue</b> cases used <b>%name</b>');
+
+    checkValidity("byCorrectSolution","donut-corr_sol", updateDonutChart,
+        'Submissions by correct solution provided', '<b>%yValue</b> submissions were <br>of type <b>%name</b>');
+    checkValidity("byCorrectSolution","donut-corr_sol", updateDonutChart,
+        'Submissions by correct solution provided', '<b>%yValue</b> submissions were <br>of type <b>%name</b>');
+    checkValidity("byHospitalization","donut-hosp_req", updateDonutChart,
+        'Submissions by hospitalization required', '<b>%yValue</b> cases of <br><b>%name</b>');
+    checkValidity("byGender","donut-gender", updateDonutChart,
+        'Submissions by gender','<b>%yValue</b> submissions by <b>%name</b>');
+    checkValidity("byBlended","donut-blended", updateDonutChart,
+        'Amount of submissions that had blended training','<b>%yValue</b> submissions were <b>%name</b>');
     updateMap();
 }
 
-function checkValidity(id, element, func){
+// Check if the desired chart is a valid one, draw it if it's true, hide the elements if it is false.
+function checkValidity(id, element, func, title, tooltip){
     if (isNotEmpty(id)){
         document.getElementById(element).style.display = 'block';
-        func();
+        func(element, title, tooltip, calculatedValues[id]);
     }
     else{
         document.getElementById(element).style.display = 'none';
     }
 }
 
+// Check if the given array exists and is not empty
 function isNotEmpty(id){
     if (calculatedValues[id] != null){
         if (calculatedValues[id].length !== 0){
@@ -397,16 +433,15 @@ function isNotEmpty(id){
     return false;
 }
 
-////////////////////////////////////////////
-////////////////////////////////////////////
-
-// Barchart by age
-function updateBarAge() {
-    var chart = JSC.chart('bar-age', {
+// Update the given bar chart
+function updateBarChart(elementId, title, tooltip, points){
+    var chart = JSC.chart(elementId, {
         debug: true,
         type: 'column',
-        title_label_text:
-            'Amount of submissions by age',
+        title: {
+            label: {text: title,style_fontSize: 16 },
+            position: 'center'
+        },
         legend_visible: false,
         yAxis_defaultTick_label_text: '%value',
         xAxis: {
@@ -424,306 +459,61 @@ function updateBarAge() {
         series: [
             {
                 defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>',
-                    marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
-                    },
+                    tooltip: tooltip,
                     label_text: '%value'
                 },
-                name: 'Submissions by age',
-                points: calculatedValues["byAge"],
+                name: title,
+                points: points,
             }
         ]
-    });
+    }, function(c) {
+        c.series()
+            .points()
+            .options({ color: '#940606' });
+    } );
 }
 
-// Barchart by education
-function updateBarEducation(){
-    var chart = JSC.chart('bar-edu', {
-        debug: true,
-        type: 'column',
-        title_label_text:
-            'Amount of submissions by education',
-        legend_visible: false,
-        yAxis_defaultTick_label_text: '%value',
-        xAxis: {
-            defaultTick: {
-                placement: 'inside',
-                label: {
-                    color: 'white',
-                    style: {
-                        fontWeight: 'bold',
-                        fontSize: 16
-                    }
-                }
-            }
-        },
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> people that submitted have <br><b>%name</b> as their highest form of education',
-                    marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
-                    },
-                    label_text: '%value'
-                },
-                name: 'Submissions by education',
-                points: calculatedValues["byEducation"],
-            }
-        ]
-    });
-}
-
-// Donut by correct solution
-function updateDonutCorrectSolution(){
-    var chart = JSC.chart('donut-corr_sol', {
+// Update the given donut chart
+function updateDonutChart(elementId, title, tooltip, points){
+    let count = 0;
+    let chart = JSC.chart(elementId, {
         debug: true,
         legend: {
             template: '%icon %name',
             position: 'right'
         },
         title: {
-            label: {text: 'Submissions by correct solution provided',style_fontSize: 16 },
+            label: {text: title,style_fontSize: 16 },
             position: 'center'
         },
-        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
+        defaultSeries: { type: 'pie donut'},
         defaultAnnotation_label_style_fontSize: 16,
         series: [
             {
                 defaultPoint: {
                     tooltip:
-                        '<b>%yValue</b> submissions were <br>of type <b>%name</b>',
+                    tooltip,
                     marker: {
                         visible: false
                     },
                     label_text: '%value'
                 },
-                name: 'Submissions by correct solution provided',
-                points: calculatedValues["byCorrectSolution"],
+                name: title,
+                points: points,
             }
         ],
-        toolbar_visible: false});
+        toolbar_visible: false}, function(c) {
+        c.series()
+            .points(function(p) {
+                count++;
+                let step = Math.round(160/points.length);
+                let bValue = 200-step*count;
+                p.options({color: 'rgb(' + bValue + ',6,6)'});
+            })
+    } );
 }
 
-// Donut by required hospitalization
-function updateDonutHospitalization(){
-    var chart = JSC.chart('donut-hosp_req', {
-        debug: true,
-        legend: {
-            template: '%icon %name',
-            position: 'right'
-        },
-        title: {
-            label: {text: 'Submissions by hospitalization required',style_fontSize: 16 },
-            position: 'center'
-        },
-        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
-        defaultAnnotation_label_style_fontSize: 16,
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> cases of <br><b>%name</b>',
-                    marker: {
-                        visible: false
-                    },
-                    label_text: '%value'
-                },
-                name: 'Submissions by hospitalization required',
-                points: calculatedValues["byHospitalization"],
-            }
-        ],
-        toolbar_visible: false});
-}
-
-// Donut by gender
-function updateDonutGender(){
-    var chart = JSC.chart('donut-gender', {
-        debug: true,
-        legend: {
-            template: '%icon %name',
-            position: 'right'
-        },
-        title: {
-            label: {text: 'Submissions by gender',style_fontSize: 16 },
-            position: 'center'
-        },
-        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
-        defaultAnnotation_label_style_fontSize: 16,
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> submissions by <b>%name</b>',
-                    marker: {
-                        visible: false
-                    },
-                    label_text: '%value'
-                },
-                name: 'Submissions by gender',
-                points: calculatedValues["byGender"],
-            }
-        ],
-        toolbar_visible: false});
-}
-
-// Barchart by number of trainings
-function updateBarTraining() {
-    var chart = JSC.chart('bar-training', {
-        debug: true,
-        type: 'column',
-        title_label_text:
-            'Amount of submissions by number of trainings',
-        legend_visible: false,
-        yAxis_defaultTick_label_text: '%value',
-        xAxis: {
-            defaultTick: {
-                placement: 'inside',
-                label: {
-                    color: 'white',
-                    style: {
-                        fontWeight: 'bold',
-                        fontSize: 16
-                    }
-                }
-            }
-        },
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> trainings <br>of type <b>%name</b>',
-                    marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
-                    },
-                    label_text: '%value'
-                },
-                name: 'Amount of submissions by number of trainings',
-                points: calculatedValues["byInjury"],
-            }
-        ]
-    });
-}
-
-// Barchart by injury type
-function updateBarInjury() {
-    var chart = JSC.chart('bar-injury', {
-        debug: true,
-        type: 'column',
-        title_label_text:
-            'Amount of submissions of a specific injury type',
-        legend_visible: false,
-        yAxis_defaultTick_label_text: '%value',
-        xAxis: {
-            defaultTick: {
-                placement: 'inside',
-                label: {
-                    color: 'white',
-                    style: {
-                        fontWeight: 'bold',
-                        fontSize: 16
-                    }
-                }
-            }
-        },
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> injuries where <br>of type <b>%name</b>',
-                    marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
-                    },
-                    label_text: '%value'
-                },
-                name: 'Amount of submissions of a specific injury type',
-                points: calculatedValues["byInjury"],
-            }
-        ]
-    });
-}
-
-// Barchart by assistance type
-function updateBarAssistance() {
-    var chart = JSC.chart('bar-assistance', {
-        debug: true,
-        type: 'column',
-        title_label_text:
-            'Amount of submissions that used a specific assistance',
-        legend_visible: false,
-        yAxis_defaultTick_label_text: '%value',
-        xAxis: {
-            defaultTick: {
-                placement: 'inside',
-                label: {
-                    color: 'white',
-                    style: {
-                        fontWeight: 'bold',
-                        fontSize: 16
-                    }
-                }
-            }
-        },
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> cases used <b>%name</b>',
-                    marker: {
-                        visible: true,
-                        size: 40,
-                        fill: 'azure'
-                    },
-                    label_text: '%value'
-                },
-                name: 'Amount of submissions that used a specific assistance',
-                points: calculatedValues["byAssistance"],
-            }
-        ]
-    });
-}
-
-// Donut by blended
-function updateDonutBlended(){
-    var chart = JSC.chart('donut-blended', {
-        debug: true,
-        legend: {
-            template: '%icon %name',
-            position: 'right'
-        },
-        title: {
-            label: {text: 'Amount of submissions that had blended training',style_fontSize: 16 },
-            position: 'center'
-        },
-        defaultSeries: { type: 'pie donut', palette: 'fiveColor36'  },
-        defaultAnnotation_label_style_fontSize: 16,
-        series: [
-            {
-                defaultPoint: {
-                    tooltip:
-                        '<b>%yValue</b> submissions were <b>%name</b>',
-                    marker: {
-                        visible: false
-                    },
-                    label_text: '%value'
-                },
-                name: 'Amount of submissions that had blended training',
-                points: calculatedValues["byBlended"],
-            }
-        ],
-        toolbar_visible: false});
-}
-
+// Updates the heatmap
 function updateMap(){
     let filteredValues = calculatedValues["byMap"]["coordinates"].filter(function (el) {
         return !(el["latitude"] === 0 && el["longitude"] === 0);
@@ -735,18 +525,19 @@ function updateMap(){
         newArray.push(new google.maps.LatLng(filteredValues[i]["latitude"], filteredValues[i]["longitude"]));
     }
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 3,
-        center: {lat: calculatedValues["byMap"]["centerLatitude"], lng: calculatedValues["byMap"]["centerLongitude"]},
-        mapTypeId: 'roadmap'
-    });
+    let mapOptions = { zoom:3, mapTypeId: google.maps.MapTypeId.ROADMAP, center: {lat: calculatedValues["byMap"]["centerLatitude"], lng: calculatedValues["byMap"]["centerLongitude"]} };
+
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: newArray,
         map: map
     });
+
+    directionsDisplay.setMap(map);
 }
 
+// Updates the professional help line
 function updateProfHelp(){
-    document.getElementById("percentageProfHelp").innerHTML = "In " + calculatedValues["byPercentProfHelp"] + "% of cases, professional help was needed.";
+    document.getElementById("percentageProfHelp").innerHTML = "Proffesional help was needed in <b>" + calculatedValues["byPercentProfHelp"] + "%</b> of cases.";
 }

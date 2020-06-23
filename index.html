@@ -19,18 +19,13 @@
 
     <!-- heatmaplayer -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTcSZiJAw02QG4JsdFh_5q4BXmQM7c_C8&libraries=visualization&callback=initMap"></script>
-
-    <!-- anychart -->
-    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
-    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTcSZiJAw02QG4JsdFh_5q4BXmQM7c_C8&libraries=visualization"></script>
 
     <!-- jscharting -->
     <script src="https://code.jscharting.com/latest/jscharting.js"></script>
     <script type="text/javascript" src="https://code.jscharting.com/latest/modules/types.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/json2csv"></script>
 
     <link rel="icon" href="Images/redcross%20icon.png">
     <title>Red Cross · Statistics</title>
@@ -39,7 +34,7 @@
     <link href="css/statistics.css" rel="stylesheet">
 </head>
 
-<body id="page">
+<div id="page">
     <!-- Logo and title -->
     <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
         <img src="Images/redcross%20logo.png" alt="Belgian Red Cross logo">
@@ -69,7 +64,7 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" onclick="downloadFile()">
+                    <a id="downloadFile" class="nav-link" onclick="downloadFile()">
                         <i class="fa fa-download" style="font-size:24px">
                             <span class="badge badge-warning"></span>
                         </i>
@@ -161,14 +156,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="subButton">
+            <div class="row">
+                <div class="col-5"></div>
+                <div class="col-1"><button class="submit" type="button" onclick="submitSettings()">Submit</button></div>
+                <div class="col-1"><div id="smallLoader"class="smallLoader"></div></div>
+            </div>
+        </div>
+    </div>
+
     </div>
 
     <div id="swappableContent" class="container-lg">
         <div class="statistic container-lg">
-            <!-- TODO: give the statistic class a good css -->
             <div class="row">
                 <a id="amountOfCases"></a>
-                <!-- TODO: fill in statistic -->
             </div>
         </div>
 
@@ -189,7 +192,6 @@
         <div class="statistic container-lg">
             <div class="row">
                 <a id="percentageProfHelp"></a>
-                <!-- TODO: fill in statistic -->
             </div>
         </div>
     </div>
