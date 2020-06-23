@@ -64,7 +64,6 @@ let currentSettings = {
 };
 
 // Things to do when a filter value is updated
-// TODO: when a filters value changes, check which charts are still valid to show
 function setTypeOfFA(){
     let element = document.getElementById("settingFA");
     currentSettings.typeOfFA = element.options[element.selectedIndex].value;
@@ -95,12 +94,10 @@ function setEducation(){
     currentSettings.education = element.options[element.selectedIndex].value;
 }
 function setFrom(){
-    let element = document.getElementById("settingFrom");
-    currentSettings.from = element.options[element.selectedIndex].value;
+    currentSettings.from = document.getElementById("settingFrom").value;
 }
 function setTo(){
-    let element = document.getElementById("settingTo");
-    currentSettings.to = element.options[element.selectedIndex].value;
+    currentSettings.to = document.getElementById("settingTo").value;
 }
 
 function submitSettings(){
@@ -160,30 +157,27 @@ function initAll(){
 
 // Get list of assistances
 function downloadFile(){
-    client.get('https://redcrossbackend.azurewebsites.net/Analytics/export', function(response) {
-            //let csv = JSON2CSV(JSON.parse(response));
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
+            let json = JSON.parse(response);
+            let fields = Object.keys(json[0]);
+            let replacer = function(key, value) { return value === null ? '' : value };
+            let csv = json.map(function(row){
+                return fields.map(function(fieldName){
+                    return JSON.stringify(row[fieldName], replacer)
+                }).join(',')
+            });
+            csv.unshift(fields.join(','));
+            csv = csv.join('\r\n');
 
-            // console.log(response);
-            // let json = response;
-            // let fields = Object.keys(json[0]);
-            // let replacer = function(key, value) { return value === null ? '' : value };
-            // let csv = json.map(function(row){
-            //     return fields.map(function(fieldName){
-            //         return JSON.stringify(row[fieldName], replacer)
-            //     }).join(',')
-            // });
-            // csv.unshift(fields.join(','));
-            // csv = csv.join('\r\n');
-            //
-            // let downloadLink = document.createElement("a");
-            // let blob = new Blob(["\ufeff", csv]);
-            // let url = URL.createObjectURL(blob);
-            // downloadLink.href = url;
-            // downloadLink.download = "data.csv";
-            //
-            // document.body.appendChild(downloadLink);
-            // downloadLink.click();
-            // document.body.removeChild(downloadLink);
+            let downloadLink = document.createElement("a");
+            let blob = new Blob(["\ufeff", csv]);
+            let url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = "data.csv";
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         },
         currentSettings);
 }
