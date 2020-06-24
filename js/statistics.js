@@ -402,13 +402,13 @@ function updateGraphs(){
         '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>');
     checkValidity("byEducation","bar-edu", updateBarChart, 'Amount of submissions by education',
         '<b>%yValue</b> people that submitted have <br><b>%name</b> as their highest form of education');
-    checkValidity("byTraining","bar-training", updateBarChart,
-        'Amount of submissions by number of trainings', '<b>%yValue</b> trainings <br>of type <b>%name</b>');
     checkValidity("byInjury","bar-injury", updateBarChart,
         'Amount of submissions of a specific injury type', '<b>%yValue</b> injuries where <br>of type <b>%name</b>');
     checkValidity("byAssistance","bar-assistance", updateBarChart,
         'Amount of submissions that used a specific assistance', '<b>%yValue</b> cases used <b>%name</b>');
 
+    checkValidity("byNumberTraining","donut-training", updateDonutChart,
+        'Amount of submissions by number of trainings', '<b>%yValue</b> trainings <br>of type <b>%name</b>');
     checkValidity("byCorrectSolution","donut-corr_sol", updateDonutChart,
         'Submissions by correct solution provided', '<b>%yValue</b> submissions were <br>of type <b>%name</b>');
     checkValidity("byCorrectSolution","donut-corr_sol", updateDonutChart,
