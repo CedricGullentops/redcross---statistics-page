@@ -101,6 +101,7 @@ function setTo(){
 }
 
 function submitSettings(){
+    updatedGraphs = false;
     document.getElementById('smallLoader').style.display = 'block';
     getCalculatedValues();
     getRawData();
@@ -134,6 +135,10 @@ function initializeMap() {
     directionsDisplay.setMap(map);
 }
 
+// Remember the current screen to see if charts should be updated or not
+let currentScreen = "statistics";
+let updatedGraphs = false;
+
 // Initializes all elements
 window.initAll();
 function initAll(){
@@ -157,6 +162,7 @@ function initAll(){
 
 // Get list of assistances
 function downloadFile(){
+    document.getElementById('miniLoader').style.display = 'block';
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
             let json = JSON.parse(response);
             let fields = Object.keys(json[0]);
@@ -178,6 +184,7 @@ function downloadFile(){
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
+            document.getElementById('miniLoader').style.display = 'none';
         },
         currentSettings);
 }
@@ -295,7 +302,10 @@ function getRawData(){
 function getCalculatedValues(){
     client.get('https://redcrossbackend.azurewebsites.net/Analytics/stats' +  setParams(), function(response) {
             calculatedValues = JSON.parse(response);
-            updateGraphs();
+            if (currentScreen === "statistics"){
+                updateGraphs();
+                updatedGraphs = true;
+            }
         });
 }
 
@@ -361,16 +371,22 @@ function getEducations(){
 
 // Change elements when changing tabs (make it look like there are 2 pages)
 function pressedStatisticsTab(){
+    currentScreen = "statistics";
     document.getElementById("statisticsTab").className = "nav-item active";
     document.getElementById("dataTab").className = "nav-item";
 
     document.getElementById('swappableContent').style.display = 'block';
     document.getElementById('mapWrapper').style.display = 'block';
     document.getElementById('dataWrapper').style.display = 'none';
+    if (updatedGraphs === false && currentScreen === "statistics"){
+        updateGraphs();
+        updatedGraphs = true;
+    }
 }
 
 // Change elements when changing tabs
 function pressedDataTab(){
+    currentScreen = "data";
     document.getElementById("dataTab").className = "nav-item active";
     document.getElementById("statisticsTab").className = "nav-item";
 

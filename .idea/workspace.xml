@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/statistics.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/statistics.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
     </list>
@@ -67,7 +68,8 @@
       <workItem from="1592803915606" duration="6951000" />
       <workItem from="1592811428319" duration="5000" />
       <workItem from="1592816376985" duration="9759000" />
-      <workItem from="1592841417261" duration="22427000" />
+      <workItem from="1592841417261" duration="22567000" />
+      <workItem from="1593015451711" duration="3874000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -174,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592914435835</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Fixed most final errors. Added ability to download csv.">
+      <created>1592917842929</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1592917842929</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +199,8 @@
     <MESSAGE value="Small patch for map and new bar chart." />
     <MESSAGE value="Everything except for the download button." />
     <MESSAGE value="Added button for get requests and updated overall look." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added button for get requests and updated overall look." />
+    <MESSAGE value="Fixed most final errors. Added ability to download csv." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed most final errors. Added ability to download csv." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -201,24 +211,24 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592914435011">
+    <state x="434" y="140" key="CommitChangelistDialog2" timestamp="1592917842210">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592914435011" />
+    <state x="434" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592917842210" />
     <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759491959" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592914441682">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1592917847163">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592914441682" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592917847163" />
     <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759500186" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="342" y="244" key="new project wizard/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592059592304" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1592912113385">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593017083917">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592912113385" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593017083917" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592818949109">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

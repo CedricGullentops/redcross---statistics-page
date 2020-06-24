@@ -62,8 +62,10 @@
                 </li>
             </ul>
 
+            <div id="miniLoader" class="miniLoader"></div>
             <ul class="navbar-nav">
                 <li class="nav-item">
+
                     <a id="downloadFile" class="nav-link" onclick="downloadFile()">
                         <i class="fa fa-download" style="font-size:24px">
                             <span class="badge badge-warning"></span>
@@ -157,11 +159,17 @@
             </div>
         </div>
 
-        <div class="subButton">
+        <div class="topPadding">
             <div class="row">
                 <div class="col-5"></div>
-                <div class="col-1"><button class="submit" type="button" onclick="submitSettings()">Submit</button></div>
-                <div class="col-1"><div id="smallLoader"class="smallLoader"></div></div>
+                <div class="col-6"><button class="submit" type="button" onclick="submitSettings()">Submit</button></div>
+            </div>
+        </div>
+
+        <div class="topPadding">
+            <div class="row">
+                <div class="col-5"></div>
+                <div class="col-6"><div id="smallLoader" class="largeLoader"></div></div>
             </div>
         </div>
     </div>
@@ -177,15 +185,17 @@
 
         <div class="container-lg">
             <div class="row">
-                <div id="donut-gender" class="chart col-md"></div>
-                <div id="bar-age" class="chart col-md-6"></div>
-                <div id="bar-edu" class="chart col-md-7-12"></div>
-                <div id="bar-injury" class="chart col-md-6"></div>
-                <div id="bar-assistance" class="chart col-md-7-12"></div>
-                <div id="donut-corr_sol" class="chart col-md-6"></div>
-                <div id="donut-hosp_req" class="chart col-md-7-12"></div>
-                <div id="bar-training" class="chart col-md-6"></div>
-                <div id="donut-blended" class="chart col-md-7-12"></div>
+                <p class="">
+                    <div id="donut-gender" class="donut col-md-6"></div>
+                    <div id="bar-age" class="bar col-md-6"></div>
+                    <div id="bar-edu" class="bar col-md-6"></div>
+                </p>
+                <div id="bar-injury" class="bar col-md-12"></div>
+                <div id="bar-assistance" class="bar col-md-12"></div>
+                <div id="bar-training" class="bar col-md-6"></div>
+                <div id="donut-corr_sol" class="donut col-md-6"></div>
+                <div id="donut-hosp_req" class="donut col-md-6"></div>
+                <div id="donut-blended" class="donut col-md-6"></div>
             </div>
         </div>
 
