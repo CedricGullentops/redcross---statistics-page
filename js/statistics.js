@@ -411,7 +411,7 @@ function updateGraphs(){
         updateBarChart("bar-injury", 'Amount of submissions of a specific injury type', '<b>%yValue</b> injuries where <br>of type <b>%name</b>', calculatedValues["byInjury"]);
     }
     if(checkValidity("byAssistance","bar-assistance")){
-        updateBarChart("bar-assistance", 'Amount of submissions that used a specific assistance', '<b>%yValue</b> cases used <b>%name</b>', calculatedValues["byAssistance"]);
+        updateBarChart("bar-assistance", 'Amount of submissions that used a specific assistance', '<b>%name</b> was used <b>%yValue</b> amount of times', calculatedValues["byAssistance"]);
     }
     if(checkValidity("byNumberTraining","bar-training")){
         updateBarChart("bar-training", 'Amount of submissions by number of trainings', '<b>%yValue</b> submitters had <br> a training <b>%name</b> times', calculatedValues["byNumberTraining"]);
