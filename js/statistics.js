@@ -455,6 +455,7 @@ function updateBarChart(elementId, title, tooltip, points){
         },
         legend_visible: false,
         yAxis_defaultTick_label_text: '%value',
+        yAxis_formatString:'n',
         xAxis: {
             defaultTick: {
                 placement: 'inside',
@@ -474,7 +475,7 @@ function updateBarChart(elementId, title, tooltip, points){
                     label_text: '%value'
                 },
                 name: title,
-                points: points,
+                points: points
             }
         ]
     }, function(c) {
