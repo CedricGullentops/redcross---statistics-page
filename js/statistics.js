@@ -397,7 +397,6 @@ function pressedDataTab(){
 
 // update all graphs based on currentValues
 function updateGraphs(){
-    updateProfHelp();
     checkValidity("byAge","bar-age", updateBarChart, 'Amount of submissions by age',
         '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>');
     checkValidity("byEducation","bar-edu", updateBarChart, 'Amount of submissions by education',
@@ -419,6 +418,8 @@ function updateGraphs(){
         'Submissions by gender','<b>%yValue</b> submissions by <b>%name</b>');
     checkValidity("byBlended","donut-blended", updateDonutChart,
         'Amount of submissions that had blended training','<b>%yValue</b> submissions were <b>%name</b>');
+    checkValidity("byProfHelp","donut-prof-help", updateDonutChart,
+        'Amount of submissions that required professional help','<b>%yValue</b> submissions were <b>%name</b>');
     updateMap();
 }
 
@@ -545,9 +546,4 @@ function updateMap(){
     });
 
     directionsDisplay.setMap(map);
-}
-
-// Updates the professional help line
-function updateProfHelp(){
-    document.getElementById("percentageProfHelp").innerHTML = "Proffesional help was needed in <b>" + calculatedValues["byPercentProfHelp"] + "%</b> of cases.";
 }

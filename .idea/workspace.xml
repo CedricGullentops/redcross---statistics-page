@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +68,7 @@
       <workItem from="1592841417261" duration="22567000" />
       <workItem from="1593015451711" duration="5332000" />
       <workItem from="1593021368353" duration="981000" />
-      <workItem from="1593025860100" duration="5000000" />
+      <workItem from="1593025860100" duration="6315000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -205,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593070211260</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Made bars horizontal for readability.">
+      <created>1593072803781</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1593072803781</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +230,8 @@
     <MESSAGE value="Fixed bug where after submitting from the data tab, the graphs wouldn't be visualized resulting in errors. Moved the loading div and added another for quality of life." />
     <MESSAGE value="Fixed training donut." />
     <MESSAGE value="Changed filter order." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed filter order." />
+    <MESSAGE value="Made bars horizontal for readability." />
+    <option name="LAST_COMMIT_MESSAGE" value="Made bars horizontal for readability." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -236,15 +242,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="377" y="134" key="CommitChangelistDialog2" timestamp="1593070210371">
+    <state x="377" y="134" key="CommitChangelistDialog2" timestamp="1593072803041">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="377" y="134" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593070210371" />
+    <state x="377" y="134" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593072803041" />
     <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759491959" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593070217036">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593072808026">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593070217036" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593072808026" />
     <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759500186" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
