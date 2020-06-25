@@ -447,7 +447,7 @@ function isNotEmpty(id){
 function updateBarChart(elementId, title, tooltip, points){
     var chart = JSC.chart(elementId, {
         debug: true,
-        type: 'column',
+        type: 'horizontal column',
         title: {
             label: {text: title,style_fontSize: 16 },
             position: 'center'

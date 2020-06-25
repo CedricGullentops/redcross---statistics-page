@@ -139,7 +139,6 @@
 
             </div>
             <div class="row">
-
                 <div class="col-lg-auto">
                     Injury:
                     <select id="settingInjuries" class="browser-default custom-select" onchange="setInjuries()">
@@ -152,10 +151,9 @@
                         <option selected value="">All</option>>
                     </select>
                 </div>
-
             </div>
-            <div class="row">
 
+            <div class="row">
                 <div class="col-lg-auto">
                     From:
                     <input type="date" id="settingFrom" class="browser-default custom-select" name="from" onchange="setFrom()">
@@ -194,18 +192,21 @@
 
         <div class="container-lg">
             <div class="row">
-                <p class="">
-                    <div id="donut-gender" class="donut col-md-6"></div>
-                    <div id="bar-age" class="bar col-md-6"></div>
-                    <div id="bar-edu" class="bar col-md-6"></div>
-                </p>
-                <div id="bar-injury" class="bar col-md-12"></div>
-                <div id="bar-assistance" class="bar col-md-12"></div>
+                <div id="donut-gender" class="donut col-md-6"></div>
+                <div id="bar-age" class="bar col-md-6"></div>
+                <div id="bar-edu" class="bar col-md-6"></div>
+            </div>
+
+            <div class="row">
+                <div id="bar-injury" class="bar col-md-6"></div>
+                <div id="bar-assistance" class="bar col-md-6"></div>
+            </div>
+
+            <div class="row">
                 <div id="donut-training" class="donut col-md-6"></div>
                 <div id="donut-blended" class="donut col-md-6"></div>
                 <div id="donut-corr_sol" class="donut col-md-6"></div>
                 <div id="donut-hosp_req" class="donut col-md-6"></div>
-
             </div>
         </div>
 
