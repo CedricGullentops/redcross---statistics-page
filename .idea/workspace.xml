@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,7 @@
       <workItem from="1593025860100" duration="6315000" />
       <workItem from="1593090800005" duration="822000" />
       <workItem from="1593094335088" duration="13004000" />
-      <workItem from="1593119043704" duration="818000" />
+      <workItem from="1593119043704" duration="1510000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -235,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593110652695</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Small update to bar text.">
+      <created>1593120002225</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1593120002225</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +266,8 @@
     <MESSAGE value="Made professional help required a donut chart." />
     <MESSAGE value="Rounded bar-graph values." />
     <MESSAGE value="Changed most donut charts to bar charts. Added coordinates to map when zoomed far enough." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed most donut charts to bar charts. Added coordinates to map when zoomed far enough." />
+    <MESSAGE value="Small update to bar text." />
+    <option name="LAST_COMMIT_MESSAGE" value="Small update to bar text." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -270,16 +278,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="505" y="128" key="CommitChangelistDialog2" timestamp="1593110651851">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2354" y="140" key="CommitChangelistDialog2" timestamp="1593120000955">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="505" y="128" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593110651851" />
-    <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759491959" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593110658872">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1593120000955" />
+    <state x="2472" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593120005437">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593110658872" />
-    <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759500186" />
+    <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1593120005437" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
