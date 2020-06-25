@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/statistics.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/statistics.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,12 +40,12 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bullseye\Documents\Werk\NexiosIT\Projects\Statistics Page Red Cross\Images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Bullseye\Documents\Werk\NexiosIT\Projects\statistics webpage red cross\redcross---statistics-page\js" />
       <recent name="C:\Users\Bullseye\Documents\Werk\NexiosIT\Projects\statistics webpage red cross\redcross---statistics-page\css" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Bullseye\Documents\Werk\NexiosIT\Projects\Statistics Page Red Cross\Images" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -71,7 +73,7 @@
       <workItem from="1593021368353" duration="981000" />
       <workItem from="1593025860100" duration="6315000" />
       <workItem from="1593090800005" duration="822000" />
-      <workItem from="1593094335088" duration="1894000" />
+      <workItem from="1593094335088" duration="12617000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -220,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593091004569</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Rounded bar-graph values.">
+      <created>1593096721234</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1593096721234</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +251,8 @@
     <MESSAGE value="Changed filter order." />
     <MESSAGE value="Made bars horizontal for readability." />
     <MESSAGE value="Made professional help required a donut chart." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made professional help required a donut chart." />
+    <MESSAGE value="Rounded bar-graph values." />
+    <option name="LAST_COMMIT_MESSAGE" value="Rounded bar-graph values." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -253,24 +263,24 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="377" y="134" key="CommitChangelistDialog2" timestamp="1593091003342">
+    <state x="505" y="128" key="CommitChangelistDialog2" timestamp="1593096720108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="377" y="134" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593091003342" />
+    <state x="505" y="128" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593096720108" />
     <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759491959" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593091010611">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593096726314">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593091010611" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593096726314" />
     <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592759500186" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="342" y="244" key="new project wizard/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592059592304" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1593094823414">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1593105204438">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593094823414" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593105204438" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1592818949109">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

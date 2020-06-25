@@ -126,6 +126,8 @@ let rawValues=[];
 
 // Heatmap
 let map, directionsDisplay, directionsService;
+let overlays = [];
+TxtOverlay.prototype = new google.maps.OverlayView();
 
 function initializeMap() {
     let directionsService = new google.maps.DirectionsService();
@@ -397,40 +399,61 @@ function pressedDataTab(){
 
 // update all graphs based on currentValues
 function updateGraphs(){
-    checkValidity("byAge","bar-age", updateBarChart, 'Amount of submissions by age',
-        '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>');
-    checkValidity("byEducation","bar-edu", updateBarChart, 'Amount of submissions by education',
-        '<b>%yValue</b> people that submitted have <br><b>%name</b> as their highest form of education');
-    checkValidity("byInjury","bar-injury", updateBarChart,
-        'Amount of submissions of a specific injury type', '<b>%yValue</b> injuries where <br>of type <b>%name</b>');
-    checkValidity("byAssistance","bar-assistance", updateBarChart,
-        'Amount of submissions that used a specific assistance', '<b>%yValue</b> cases used <b>%name</b>');
+    if(checkValidity("byAge","bar-age")){
+        updateBarChart("bar-age", 'Amount of submissions by age', '<b>%yValue</b> people that submitted are <br>in the age range of <b>%name</b>', calculatedValues["byAge"]);
+    }
+    if(checkValidity("byEducation","bar-edu")){
+        updateBarChart("bar-edu", 'Amount of submissions by education', '<b>%yValue</b> people that submitted have <br><b>%name</b> as their highest form of education', calculatedValues["byEducation"]);
+    }
 
-    checkValidity("byNumberTraining","donut-training", updateDonutChart,
-        'Amount of submissions by number of trainings', '<b>%yValue</b> trainings <br>of type <b>%name</b>');
-    checkValidity("byCorrectSolution","donut-corr_sol", updateDonutChart,
-        'Submissions by correct solution provided', '<b>%yValue</b> submissions were <br>of type <b>%name</b>');
-    checkValidity("byCorrectSolution","donut-corr_sol", updateDonutChart,
-        'Submissions by correct solution provided', '<b>%yValue</b> submissions were <br>of type <b>%name</b>');
-    checkValidity("byHospitalization","donut-hosp_req", updateDonutChart,
-        'Submissions by hospitalization required', '<b>%yValue</b> cases of <br><b>%name</b>');
-    checkValidity("byGender","donut-gender", updateDonutChart,
-        'Submissions by gender','<b>%yValue</b> submissions by <b>%name</b>');
-    checkValidity("byBlended","donut-blended", updateDonutChart,
-        'Amount of submissions that had blended training','<b>%yValue</b> submissions were <b>%name</b>');
-    checkValidity("byProfHelp","donut-prof-help", updateDonutChart,
-        'Amount of submissions that required professional help','<b>%yValue</b> submissions were <b>%name</b>');
+
+    if(checkValidity("byInjury","bar-injury")){
+        updateBarChart("bar-injury", 'Amount of submissions of a specific injury type', '<b>%yValue</b> injuries where <br>of type <b>%name</b>', calculatedValues["byInjury"]);
+    }
+    if(checkValidity("byAssistance","bar-assistance")){
+        updateBarChart("bar-assistance", 'Amount of submissions that used a specific assistance', '<b>%yValue</b> cases used <b>%name</b>', calculatedValues["byAssistance"]);
+    }
+    if(checkValidity("byNumberTraining","bar-training")){
+        updateBarChart("bar-training", 'Amount of submissions by number of trainings', '<b>%yValue</b> submitters had <br> a training <b>%name</b> times', calculatedValues["byNumberTraining"]);
+    }
+
+    if(checkValidity("byGender","donut-gender")){
+        updateDonutChart("donut-gender",'Submissions by gender', '<b>%yValue</b> submissions by <b>%name</b>', calculatedValues["byGender"]);
+    }
+    if(checkValidity("byCorrectSolution","bar-corr_sol")){
+        updateBarChart("bar-corr_sol",'Submissions by correct solution provided',
+            '<b>%yValue</b> submissions were <br>of type <b>%name</b>', calculatedValues["byCorrectSolution"]);
+    }
+    if(checkValidity("byHospitalization","bar-hosp_req")){
+        updateBarChart("bar-hosp_req",'Submissions by hospitalization required',
+            '<b>%yValue</b> cases of <br><b>%name</b>', calculatedValues["byHospitalization"]);
+    }
+    if(checkValidity("byBlended","bar-blended")){
+        updateBarChart("bar-blended",'Amount of submissions that had blended training',
+            '<b>%yValue</b> submissions were <b>%name</b>', calculatedValues["byBlended"]);
+    }
+    if(checkValidity("byProfHelp","bar-prof-help")){
+        updateBarChart("bar-prof-help",'Amount of submissions that required professional help',
+            '<b>%yValue</b> submissions were <b>%name</b>', calculatedValues["byProfHelp"]);
+    }
+
+    // Optional alternative for a bar chart -- CURRENTLY NOT USED
+    // if(checkValidity("byCorrectSolution", "text-corr_sol")){
+    //     document.getElementById("text-corr_sol").innerHTML = createHTMLCorrectSolution();
+    // }
+
     updateMap();
 }
 
 // Check if the desired chart is a valid one, draw it if it's true, hide the elements if it is false.
-function checkValidity(id, element, func, title, tooltip){
+function checkValidity(id, element){
     if (isNotEmpty(id)){
         document.getElementById(element).style.display = 'block';
-        func(element, title, tooltip, calculatedValues[id]);
+        return true;
     }
     else{
         document.getElementById(element).style.display = 'none';
+        return false;
     }
 }
 
@@ -443,6 +466,15 @@ function isNotEmpty(id){
     }
     return false;
 }
+
+// Makes string for submissions by correct solution provided -- Optional alternative for a bar chart -- CURRENTLY NOT USED
+// function createHTMLCorrectSolution() {
+//     let text = "";
+//     for (let i = 0; i < calculatedValues["byCorrectSolution"].length; i ++){
+//         text += "<b>" + calculatedValues["byCorrectSolution"][i].y + "</b> submitters provided a " + "<b>"+ calculatedValues["byCorrectSolution"][i].name +"</b> solution. </br></br>";
+//     }
+//     return text;
+// }
 
 // Update the given bar chart
 function updateBarChart(elementId, title, tooltip, points){
@@ -541,10 +573,107 @@ function updateMap(){
 
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+    for (let i = 0; i < calculatedValues["byMap"]["coordinates"].length; i ++){
+        let customTxt = "<div>" + calculatedValues["byMap"]["coordinates"][i]["latitude"] + ", " +  calculatedValues["byMap"]["coordinates"][i]["longitude"] + "</div>";
+        let txt = new TxtOverlay(new google.maps.LatLng( calculatedValues["byMap"]["coordinates"][i]["latitude"],
+            calculatedValues["byMap"]["coordinates"][i]["longitude"]), customTxt, "customBox", map);
+        txt.hide();
+        overlays.push(txt);
+    }
+
+    map.addListener('zoom_changed', function() {
+        if (map.zoom > 8){
+            for (let i = 0; i < overlays.length; i ++){
+                overlays[i].show();
+            }
+        }
+        else{
+            for (let i = 0; i < overlays.length; i ++){
+                overlays[i].hide();
+            }
+        }
+    });
+
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: newArray,
         map: map
     });
 
     directionsDisplay.setMap(map);
+}
+
+function TxtOverlay(pos, txt, cls, map) {
+    this.pos = pos;
+    this.txt_ = txt;
+    this.cls_ = cls;
+    this.map_ = map;
+
+    this.div_ = null;
+
+    this.setMap(map);
+}
+
+TxtOverlay.prototype.onAdd = function() {
+    // Create the DIV and set some basic attributes.
+    var div = document.createElement('DIV');
+    div.className = this.cls_;
+
+    div.innerHTML = this.txt_;
+
+    // Set the overlay's div_ property to this DIV
+    this.div_ = div;
+    var overlayProjection = this.getProjection();
+    var position = overlayProjection.fromLatLngToDivPixel(this.pos);
+    div.style.left = position.x + 'px';
+    div.style.top = position.y + 'px';
+    // We add an overlay to a map via one of the map's panes.
+
+    var panes = this.getPanes();
+    panes.floatPane.appendChild(div);
+}
+
+TxtOverlay.prototype.draw = function() {
+    var overlayProjection = this.getProjection();
+
+    var position = overlayProjection.fromLatLngToDivPixel(this.pos);
+
+    var div = this.div_;
+    div.style.left = position.x + 'px';
+    div.style.top = position.y + 'px';
+}
+
+//Optional: helper methods for removing and toggling the text overlay.
+TxtOverlay.prototype.onRemove = function() {
+    this.div_.parentNode.removeChild(this.div_);
+    this.div_ = null;
+}
+
+TxtOverlay.prototype.hide = function() {
+    if (this.div_) {
+        this.div_.style.visibility = "hidden";
+    }
+}
+
+TxtOverlay.prototype.show = function() {
+    if (this.div_) {
+        this.div_.style.visibility = "visible";
+    }
+}
+
+TxtOverlay.prototype.toggle = function() {
+    if (this.div_) {
+        if (this.div_.style.visibility == "hidden") {
+            this.show();
+        } else {
+            this.hide();
+        }
+    }
+}
+
+TxtOverlay.prototype.toggleDOM = function() {
+    if (this.getMap()) {
+        this.setMap(null);
+    } else {
+        this.setMap(this.map_);
+    }
 }

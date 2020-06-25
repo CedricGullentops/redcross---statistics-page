@@ -270,6 +270,14 @@
     font-size: 30px;
 }
 
+.customBox {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #ffffff;
+    position: absolute;
+    font-size: 15px;
+    visibility: hidden;
+}
+
 div {
     display: block;
 }
