@@ -420,10 +420,10 @@ function updateGraphs(){
     if(checkValidity("byGender","donut-gender")){
         updateDonutChart("donut-gender",'Submissions by gender', '<b>%yValue</b> submissions by <b>%name</b>', calculatedValues["byGender"]);
     }
-    if(checkValidity("byCorrectSolution","bar-corr_sol")){
-        updateBarChart("bar-corr_sol",'Submissions by correct solution provided',
-            '<b>%yValue</b> submissions were <br>of type <b>%name</b>', calculatedValues["byCorrectSolution"]);
-    }
+    // if(checkValidity("byCorrectSolution","bar-corr_sol")){
+    //     updateBarChart("bar-corr_sol",'Submissions by correct solution provided',
+    //         '<b>%yValue</b> submissions were <br>of type <b>%name</b>', calculatedValues["byCorrectSolution"]);
+    // }
     if(checkValidity("byHospitalization","bar-hosp_req")){
         updateBarChart("bar-hosp_req",'Submissions by hospitalization required',
             '<b>%yValue</b> cases of <br><b>%name</b>', calculatedValues["byHospitalization"]);
