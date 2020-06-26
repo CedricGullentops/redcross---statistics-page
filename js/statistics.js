@@ -19,6 +19,7 @@ class Settings {
         this._injuries = [];
         this._assistances = [];
         this._educations = [];
+        this._ages=[];
     }
     get countries() {
         return this._countries;
@@ -46,6 +47,13 @@ class Settings {
     }
     set educations(x) {
         this._educations = x;
+    }
+
+    get ages() {
+        return this._ages;
+    }
+    set ages(x) {
+        this._ages = x;
     }
 }
 let settings = new Settings();
@@ -152,6 +160,7 @@ function initAll(){
     initializeMap();
 
     // Initialize settings by getting back-end information
+    getAges();
     getAssistances();
     getInjuries();
     getCountries();
@@ -309,6 +318,21 @@ function getCalculatedValues(){
                 updatedGraphs = true;
             }
         });
+}
+
+// Get list of assistances
+function getAges(){
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/ages', function(response) {
+        settings.ages = JSON.parse(response);
+        let select = document.getElementById("settingAges");
+        for(let i = 0; i < settings.ages.length; i++){
+            let assist = settings.ages[i];
+            let el = document.createElement("option");
+            el.textContent = assist;
+            el.value = assist;
+            select.appendChild(el);
+        }
+    });
 }
 
 // Get list of assistances
