@@ -450,15 +450,15 @@ function updateGraphs(){
     // }
     if(checkValidity("byHospitalization","bar-hosp_req")){
         updateBarChart("bar-hosp_req",'Submissions by hospitalization required',
-            '<b>%yValue</b> cases of <br><b>%name</b>', calculatedValues["byHospitalization"]);
+            '<b>%yValue</b> cases were <br><b>%name</b>', calculatedValues["byHospitalization"]);
     }
     if(checkValidity("byBlended","bar-blended")){
         updateBarChart("bar-blended",'Amount of submissions that had blended training',
-            '<b>%yValue</b> submissions were <b>%name</b>', calculatedValues["byBlended"]);
+            '<b>%yValue</b> cases were <b>%name</b>', calculatedValues["byBlended"]);
     }
     if(checkValidity("byProfHelp","bar-prof-help")){
         updateBarChart("bar-prof-help",'Amount of submissions that required professional help',
-            '<b>%yValue</b> submissions were <b>%name</b>', calculatedValues["byProfHelp"]);
+            '<b>%yValue</b> cases were <b>%name</b>', calculatedValues["byProfHelp"]);
     }
 
     // Optional alternative for a bar chart -- CURRENTLY NOT USED
