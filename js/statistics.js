@@ -508,7 +508,6 @@ function updateBarChart(elementId, title, tooltip, points){
         document.getElementById(elementId).parentNode.style.height = pixelCount + 'px';
     }
     var chart = JSC.chart(elementId, {
-        maintainAspectRatio: false,
         debug: true,
         type: 'horizontal column',
         title: {
@@ -565,8 +564,7 @@ function updateDonutChart(elementId, title, tooltip, points){
         series: [
             {
                 defaultPoint: {
-                    tooltip:
-                    tooltip,
+                    tooltip: tooltip,
                     marker: {
                         visible: false
                     },
