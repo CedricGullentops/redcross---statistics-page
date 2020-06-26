@@ -178,7 +178,7 @@
 
 .bar {
     max-width: 1920px;
-    height: 400px;
+    height: 100%;
     margin: 0px auto;
 }
 
@@ -186,6 +186,10 @@
     max-width: 740px;
     height: 400px;
     margin: 0px auto;
+}
+
+.row{
+    height: 100%;
 }
 
 .statistic {

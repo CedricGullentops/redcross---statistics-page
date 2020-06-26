@@ -502,7 +502,13 @@ function isNotEmpty(id){
 
 // Update the given bar chart
 function updateBarChart(elementId, title, tooltip, points){
+    let pixelCount = 400;
+    for (let i=0; i<Math.floor(points.length/10); i++){
+        pixelCount += 400;
+        document.getElementById(elementId).parentNode.style.height = pixelCount + 'px';
+    }
     var chart = JSC.chart(elementId, {
+        maintainAspectRatio: false,
         debug: true,
         type: 'horizontal column',
         title: {
