@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="28e9fb0b-ce0f-4ed5-836f-afc81cff02a7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/statistics.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/statistics.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/statistics.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/statistics.js" afterDir="false" />
     </list>
@@ -75,7 +74,7 @@
       <workItem from="1593090800005" duration="822000" />
       <workItem from="1593094335088" duration="13004000" />
       <workItem from="1593119043704" duration="2215000" />
-      <workItem from="1593163606862" duration="4585000" />
+      <workItem from="1593163606862" duration="6768000" />
     </task>
     <task id="LOCAL-00001" summary="Temporary push for deployment to azure">
       <created>1592661861844</created>
@@ -273,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593165547356</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Made bar size dynamic.">
+      <created>1593168813391</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1593168813391</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +308,8 @@
     <MESSAGE value="Removing corr solution graph due to unavailable data." />
     <MESSAGE value="Use get request to get the age ranges." />
     <MESSAGE value="Update bar overlay for some bar charts." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update bar overlay for some bar charts." />
+    <MESSAGE value="Made bar size dynamic." />
+    <option name="LAST_COMMIT_MESSAGE" value="Made bar size dynamic." />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592738713611">
@@ -313,15 +320,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592745991165" />
-    <state x="505" y="128" key="CommitChangelistDialog2" timestamp="1593165546198">
+    <state x="505" y="128" key="CommitChangelistDialog2" timestamp="1593168812396">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="505" y="128" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593165546198" />
+    <state x="505" y="128" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593168812396" />
     <state x="2354" y="140" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1593164365829" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593165551168">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1593168816473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593165551168" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593168816473" />
     <state x="2472" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1593164371282" />
     <state x="342" y="244" key="new project wizard" timestamp="1592059592304">
       <screen x="0" y="0" width="1920" height="1040" />

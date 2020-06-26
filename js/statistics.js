@@ -537,7 +537,8 @@ function updateBarChart(elementId, title, tooltip, points){
                     label_text: '%value'
                 },
                 name: title,
-                points: points
+                points: points,
+                color: "black"
             }
         ]
     }, function(c) {
