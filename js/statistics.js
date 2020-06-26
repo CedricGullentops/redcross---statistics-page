@@ -174,7 +174,7 @@ function initAll(){
 // Get list of assistances
 function downloadFile(){
     document.getElementById('miniLoader').style.display = 'block';
-    client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw', function(response) {
+    client.get('https://redcrossbackend.azurewebsites.net/Analytics/raw' + setParams(), function(response) {
             let json = JSON.parse(response);
             let fields = Object.keys(json[0]);
             let replacer = function(key, value) { return value === null ? '' : value };
@@ -537,8 +537,7 @@ function updateBarChart(elementId, title, tooltip, points){
                     label_text: '%value'
                 },
                 name: title,
-                points: points,
-                color: "black"
+                points: points
             }
         ]
     }, function(c) {
